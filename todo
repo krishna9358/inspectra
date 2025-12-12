@@ -1,0 +1,2 @@
+1. Github redirect uri - change it after deployment
+2. CHnage the database from developement to production and migrate the data.
