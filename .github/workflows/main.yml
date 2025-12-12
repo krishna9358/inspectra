@@ -1,0 +1,14 @@
+            - name: Eslint check
+  # You may pin to the exact commit or the version.
+  # uses: krizzu/eslint-check-action@a10fa11628d6ba82cd67c76b5fb7d1549d55039e
+  uses: krizzu/eslint-check-action@v1.1.0
+  with:
+    # GitHub token
+    ghToken: 
+    # Relative path to files/directories to run lint on.
+    eslintFiles: # optional, default is .
+    # Relative path to eslint config. Can either be ".js" config, ".eslintrc" or "package.json".
+    eslintConfig: # optional, default is .eslintrc
+    # File extension to run linting on.
+    eslintExt: # optional, default is js, ts, jsx, tsx
+          
