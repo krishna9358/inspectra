@@ -1,14 +1,36 @@
-import { Button } from "@/components/ui/button";
-import LogoutButton from "@/module/auth/components/logout-button";
-import { requireAuth } from "@/module/auth/utils/auth-utils";
-import Image from "next/image";
+import { requireUnAuth } from "@/module/auth/utils/auth-utils";
+import { Navbar } from "@/components/landing/navbar";
+import { Scene } from "@/components/landing/scene";
+import { Hero } from "@/components/landing/hero";
+import { Features } from "@/components/landing/features";
+import { HowItWorks } from "@/components/landing/how-it-works";
+import { DemoSection } from "@/components/landing/demo-section";
+import { Testimonials } from "@/components/landing/testimonials";
+import { Pricing } from "@/components/landing/pricing";
+import { CTA } from "@/components/landing/cta";
+import { Footer } from "@/components/landing/footer";
 
 export default async function Home() {
-  await requireAuth();
+  await requireUnAuth();
+  
   return (
-    <div className="flex flex-col items-center justify-center h-screen" >
-      <Button>Hello</Button>
-      <LogoutButton>Signout</LogoutButton>
+    <div className="bg-[#0a0a0a] min-h-screen text-white overflow-x-hidden selection:bg-purple-500/30">
+        <Navbar />
+        
+        {/* 3D Background */}
+        <Scene />
+
+        <main>
+            <Hero />
+            <Features />
+            <HowItWorks />
+            <DemoSection />
+            <Testimonials />
+            <Pricing />
+            <CTA />
+        </main>
+
+        <Footer />
     </div>
   );
 }
