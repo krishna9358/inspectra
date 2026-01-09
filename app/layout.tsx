@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Horsify : AI Code Reviewer",
-  description: "Horsify is an AI code reviewer that helps you review your code and improve your code quality.",
+  title: "Inspectra : See flaws before production does",
+  description: "Inspectra is an AI code reviewer that helps you review your code and improve your code quality.",
 };
 
 export default function RootLayout({

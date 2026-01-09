@@ -23,7 +23,7 @@ import { LoginForm } from './login-form'
             <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
               <GalleryVerticalEnd className="size-4" />
             </div>
-            Horsify
+              Inspectra
           </a>
         </div>
             <LoginForm />

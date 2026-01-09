@@ -9,7 +9,7 @@ export function Testimonials() {
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-                <h2 className="text-4xl font-bold text-white mb-6">Why engineering teams trust Horsify</h2>
+                <h2 className="text-4xl font-bold text-white mb-6">Why engineering teams trust Inspectra</h2>
                 <div className="space-y-4">
                     <Benefit text="No more rubber-stamp reviews" />
                     <Benefit text="Catches race conditions before CI runs" />

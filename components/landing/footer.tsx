@@ -9,7 +9,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <Bot className="w-5 h-5 text-zinc-500" />
-              <span className="text-zinc-200 font-bold">Horsify</span>
+              <span className="text-zinc-200 font-bold">Inspectra</span>
             </div>
             <p className="text-zinc-500 text-sm leading-relaxed mb-4">
               AI-powered code reviews for modern engineering teams. Ship faster with confidence.
@@ -56,7 +56,7 @@ export function Footer() {
         </div>
         
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-600">
-          <p>© 2024 Horsify Inc. All rights reserved.</p>
+          <p>© 2026 Inspectra Inc. All rights reserved.</p>
           <div className="flex gap-8">
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500"></span>

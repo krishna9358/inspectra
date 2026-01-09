@@ -17,7 +17,7 @@ const features = [
   {
     icon: <Code className="w-6 h-6 text-blue-400" />,
     title: "Code Style Enforcement",
-    description: "Stop bike-shedding. Horsify enforces your team's style guide automatically."
+    description: "Stop bike-shedding. Inspectra enforces your team's style guide automatically."
   },
   {
     icon: <MessageSquare className="w-6 h-6 text-purple-400" />,

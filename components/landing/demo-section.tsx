@@ -45,7 +45,7 @@ export function DemoSection() {
     const initialComments = {
         7: [
              {
-                 user: "Horsify AI",
+                 user: "Inspectra AI",
                  avatar: "",
                  isAi: true,
                  time: "Just now",
@@ -61,7 +61,7 @@ export function DemoSection() {
                 <div className="flex flex-col items-center mb-16 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Deep Contextual Understanding</h2>
                     <p className="text-zinc-400 max-w-2xl">
-                        Horsify understands the intent of your code, not just the syntax. It catches logical errors that linters miss.
+                        Inspectra understands the intent of your code, not just the syntax. It catches logical errors that linters miss.
                     </p>
                 </div>
 

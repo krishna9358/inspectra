@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "horsify",
+      "name": "inspectra",
       "dependencies": {
         "@gsap/react": "^2.1.2",
         "@hookform/resolvers": "^5.2.2",
