@@ -47,6 +47,7 @@
         "dotenv": "^17.2.3",
         "embla-carousel-react": "^8.6.0",
         "framer-motion": "^12.23.26",
+        "fslightbox-react": "^2.0.2",
         "gsap": "^3.14.2",
         "input-otp": "^1.4.2",
         "lucide-react": "^0.561.0",
@@ -980,6 +981,8 @@
     "framer-motion": ["framer-motion@12.23.26", "", { "dependencies": { "motion-dom": "^12.23.23", "motion-utils": "^12.23.6", "tslib": "^2.4.0" }, "peerDependencies": { "@emotion/is-prop-valid": "*", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@emotion/is-prop-valid", "react", "react-dom"] }, "sha512-cPcIhgR42xBn1Uj+PzOyheMtZ73H927+uWPDVhUMqxy8UHt6Okavb6xIz9J/phFUHUj0OncR6UvMfJTXoc/LKA=="],
 
     "fsevents": ["fsevents@2.3.3", "", { "os": "darwin" }, "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw=="],
+
+    "fslightbox-react": ["fslightbox-react@2.0.2", "", { "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-eqAau3ywpeVdpw2bVw1qEga7eIBFK9K7JLDkNQa5PEnwZ8OGXpBwNxgjq8IJUF4C3B1hTztJ2U6C6HYEeIx7zw=="],
 
     "function-bind": ["function-bind@1.1.2", "", {}, "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA=="],
 
