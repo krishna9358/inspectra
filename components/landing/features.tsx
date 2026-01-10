@@ -1,39 +1,52 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Zap, Code, AlertTriangle, MessageSquare, Terminal } from "lucide-react";
+import {
+  Shield,
+  Zap,
+  Code,
+  AlertTriangle,
+  MessageSquare,
+  Terminal,
+} from "lucide-react";
 
 const features = [
   {
     icon: <Shield className="w-6 h-6 text-emerald-400" />,
     title: "Security & Risk Detection",
-    description: "Automatically identify vulnerabilities, secrets, and risky patterns before they merge."
+    description:
+      "Automatically identify vulnerabilities, secrets, and risky patterns before they merge.",
   },
   {
     icon: <Zap className="w-6 h-6 text-yellow-400" />,
     title: "Performance Insights",
-    description: "Catch O(n^2) loops, memory leaks, and unoptimized database queries."
+    description:
+      "Catch O(n^2) loops, memory leaks, and unoptimized database queries.",
   },
   {
     icon: <Code className="w-6 h-6 text-blue-400" />,
     title: "Code Style Enforcement",
-    description: "Stop bike-shedding. Inspectra enforces your team's style guide automatically."
+    description:
+      "Stop bike-shedding. Inspectra enforces your team's style guide automatically.",
   },
   {
     icon: <MessageSquare className="w-6 h-6 text-purple-400" />,
     title: "Context-Aware Comments",
-    description: "Reviews that understand your architecture, not just the lines changed."
+    description:
+      "Reviews that understand your architecture, not just the lines changed.",
   },
   {
     icon: <AlertTriangle className="w-6 h-6 text-orange-400" />,
     title: "Bug Prediction",
-    description: "AI analyzes complexity and churn to predict potential bugs in complex diffs."
+    description:
+      "AI analyzes complexity and churn to predict potential bugs in complex diffs.",
   },
   {
     icon: <Terminal className="w-6 h-6 text-pink-400" />,
     title: "Custom Instructions",
-    description: "Teach the AI your specific preferences with a simple configuration file."
-  }
+    description:
+      "Teach the AI your specific preferences with a simple configuration file.",
+  },
 ];
 
 export function Features() {
@@ -46,7 +59,8 @@ export function Features() {
             <span className="text-zinc-500">world-class code reviews</span>
           </h2>
           <p className="text-zinc-400 text-lg">
-            Replace manual checklists with an intelligent agent that never sleeps.
+            Replace manual checklists with an intelligent agent that never
+            sleeps.
           </p>
         </div>
 
@@ -60,7 +74,7 @@ export function Features() {
   );
 }
 
-function FeatureCard({ feature, index }: { feature: any, index: number }) {
+function FeatureCard({ feature, index }: { feature: any; index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "jest",
-    "prettier": "prettier"
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

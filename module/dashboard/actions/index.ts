@@ -41,13 +41,20 @@ export const getContributionStats = async () => {
     }
 
     const contributions = calendar.weeks.flatMap((week) =>
-      week.contributionDays.map((day) => {
-        day: day.date;
-        count: day.contributionCount;
-        level: Math.min(4, Math.floor(day.contributionCount / 3)); //convert to 0-4 scale
-      })
+      week.contributionDays.map((day) => ({
+        date: day.date,
+        count: day.contributionCount,
+        level: Math.min(4, Math.floor(day.contributionCount / 3)), //convert to 0-4 scale
+      }))
     );
-  } catch (error) {}
+
+    return {
+      contributions,
+      totalContributions: calendar.totalContributions,
+    };
+  } catch (error) {
+    console.log("Error while fetching Contribution Stats ==> ", error);
+  }
 };
 
 // =====================

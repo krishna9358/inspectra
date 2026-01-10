@@ -10,18 +10,33 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <Image src="/logo.png" alt="Logo" width={32} height={32} />
         </div>
-        
+
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
-          <Link href="#features" className="hover:text-white transition-colors">Features</Link>
-          <Link href="#how-it-works" className="hover:text-white transition-colors">How it Works</Link>
-          <Link href="#pricing" className="hover:text-white transition-colors">Pricing</Link>
+          <Link href="#features" className="hover:text-white transition-colors">
+            Features
+          </Link>
+          <Link
+            href="#how-it-works"
+            className="hover:text-white transition-colors"
+          >
+            How it Works
+          </Link>
+          <Link href="#pricing" className="hover:text-white transition-colors">
+            Pricing
+          </Link>
         </nav>
 
         <div className="flex items-center gap-4">
-          <Link href="/login" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors hidden sm:block">
+          <Link
+            href="/login"
+            className="text-sm font-medium text-zinc-400 hover:text-white transition-colors hidden sm:block"
+          >
             Sign In
           </Link>
-          <Button size="sm" className="bg-white text-black hover:bg-zinc-200 rounded-full px-4 font-medium">
+          <Button
+            size="sm"
+            className="bg-white text-black hover:bg-zinc-200 rounded-full px-4 font-medium"
+          >
             <Github className="w-4 h-4 mr-2" />
             Install App
           </Button>

@@ -12,25 +12,25 @@ import { Footer } from "@/components/landing/footer";
 
 export default async function Home() {
   await requireUnAuth();
-  
+
   return (
     <div className="bg-[#0a0a0a] min-h-screen text-white overflow-x-hidden selection:bg-purple-500/30">
-        <Navbar />
-        
-        {/* 3D Background */}
-        <Scene />
+      <Navbar />
 
-        <main>
-            <Hero />
-            <Features />
-            <HowItWorks />
-            <DemoSection />
-            <Testimonials />
-            <Pricing />
-            <CTA />
-        </main>
+      {/* 3D Background */}
+      <Scene />
 
-        <Footer />
+      <main>
+        <Hero />
+        <Features />
+        <HowItWorks />
+        <DemoSection />
+        <Testimonials />
+        <Pricing />
+        <CTA />
+      </main>
+
+      <Footer />
     </div>
   );
 }
