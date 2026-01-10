@@ -7,4 +7,7 @@ build:
 
 
 test:
-    
+    @bun run test
+
+format:
+    @bun x prettier . --write

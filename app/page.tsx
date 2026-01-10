@@ -5,9 +5,10 @@ import { CoreFeatures } from '@/components/landing/core-features';
 import AIToolsTabs from '@/components/landing/tools';
 import BenefitsGrid from '@/components/landing/benefits';
 import TestimonialsSection from '@/components/landing/client-testimonial';
-import PricingSection from '@/components/landing/pricing';
+
 import FaqAccordion from '@/components/landing/faq';
-import Footer from '@/components/landing/footer';
+import { Footer } from '@/components/landing/footer';
+
 
 export default function Home() {
   return (
@@ -18,7 +19,6 @@ export default function Home() {
       <AIToolsTabs />
       <BenefitsGrid />
       <TestimonialsSection />
-      <PricingSection />
       <FaqAccordion />
       <Footer />
     </div>
