@@ -1,5 +1,5 @@
 "use client";
-import { BarChart } from "recharts";
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -21,6 +21,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import ContributionGraph from "@/module/dashboard/component/contribution-graph";
+import { Spinner } from "@/components/ui/spinner";
 
 const page = () => {
   const { data: stats, isLoading: statsLoading } = useQuery({
@@ -101,17 +102,61 @@ const page = () => {
           </Card>
 
         </div>
-                  <Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Contribution Activity</CardTitle>
+            <CardDescription>
+              Visualizing your coding frequency over the last year
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ContributionGraph />
+          </CardContent>
+        </Card>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card className="col-span-2">
             <CardHeader>
-              <CardTitle>Contribution Activity</CardTitle>
+              <CardTitle>Monthly Activity Overview</CardTitle>
               <CardDescription>
-                Visualizing your coding frequency over the last year
+                Monthly Breakdown of commits, PRs, and AI reviews ( Last 6 Months )
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ContributionGraph />
+              {
+                monthlyActivityLoading ? (
+                  <div className="h-80 w-full flex items-center justify-center">
+                    <Spinner />
+                  </div>
+                ) :
+                  <div className="h-80 w-full ">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart
+                        data={monthlyActivity || []}
+                        margin={{
+                          top: 5,
+                          right: 30,
+                          left: 20,
+                          bottom: 5,
+                        }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip contentStyle={{ backgroundColor: "var(--background)", borderRadius: "4px", padding: "8px", borderColor: "var(--border)", borderWidth: "1px" }} itemStyle={{ color: "var(--foreground)" }} cursor={{ fill: "var(--background)", stroke: "var(--border)", strokeWidth: 1 }} />
+                        <Legend />
+                        <Bar dataKey="commits" fill="#8884d8" />
+                        <Bar dataKey="prs" fill="#894921" />
+                        <Bar dataKey="reviews" fill="#82ca9d" />
+                      </BarChart>
+                    </ResponsiveContainer>
+
+                  </div>
+              }
             </CardContent>
           </Card>
+
+        </div>
       </div>
     </>
   );
