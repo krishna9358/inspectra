@@ -20,6 +20,6 @@ jobs:
           # Relative path to files/directories to run lint on.
           eslintFiles: .
           # Relative path to eslint config. Can either be ".js" config, ".eslintrc" or "package.json".
-          eslintConfig: .eslintrc.json # Adjust if your config is named differently
+          eslintConfig: eslint.config.mjs
           # File extension to run linting on.
           eslintExt: js,ts,jsx,tsx
