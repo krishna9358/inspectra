@@ -24,7 +24,8 @@ export function LoginForm({
         setIsLoading(true);
         try {
             await signIn.social({
-                provider: "github"
+                provider: "github",
+                callbackURL: "/dashboard"
             })
         } catch (error) {
             console.log("Loggin Error ==> " ,error)
