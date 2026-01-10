@@ -79,19 +79,3 @@ export const fetchUserContribution = async(token:string, username:string) => {
     }
 }
 
-// =====================
-// Get Contrbution Stats
-// =====================
-
-export const getContributionStats = async() => {
-      
-}
-
-
-
-// =====================
-// Get Monthly Activity
-// =====================
-export const getMonthlyActivity = async() => {
-
-}
