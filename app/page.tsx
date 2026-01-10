@@ -1,35 +1,25 @@
-import { requireUnAuth } from "@/module/auth/utils/auth-utils";
-import { Navbar } from "@/components/landing/navbar";
-import { Scene } from "@/components/landing/scene";
-import { Hero } from "@/components/landing/hero";
-import { Features } from "@/components/landing/features";
-import { HowItWorks } from "@/components/landing/how-it-works";
-import { DemoSection } from "@/components/landing/demo-section";
-import { Testimonials } from "@/components/landing/testimonials";
-import { Pricing } from "@/components/landing/pricing";
-import { CTA } from "@/components/landing/cta";
-import { Footer } from "@/components/landing/footer";
+import '@/components/landing/landing.css';
+import Header from '@/components/landing/header/header';
+import HeroSection from '@/components/landing/hero';
+import { CoreFeatures } from '@/components/landing/core-features';
+import AIToolsTabs from '@/components/landing/tools';
+import BenefitsGrid from '@/components/landing/benefits';
+import TestimonialsSection from '@/components/landing/client-testimonial';
 
-export default async function Home() {
-  await requireUnAuth();
+import FaqAccordion from '@/components/landing/faq';
+import { Footer } from '@/components/landing/footer';
 
+
+export default function Home() {
   return (
-    <div className="bg-[#0a0a0a] min-h-screen text-white overflow-x-hidden selection:bg-purple-500/30">
-      <Navbar />
-
-      {/* 3D Background */}
-      <Scene />
-
-      <main>
-        <Hero />
-        <Features />
-        <HowItWorks />
-        <DemoSection />
-        <Testimonials />
-        <Pricing />
-        <CTA />
-      </main>
-
+    <div className="min-h-screen">
+      <Header />
+      <HeroSection />
+      <CoreFeatures />
+      <AIToolsTabs />
+      <BenefitsGrid />
+      <TestimonialsSection />
+      <FaqAccordion />
       <Footer />
     </div>
   );

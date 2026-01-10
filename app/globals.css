@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root {
   --background: oklch(0.9911 0 0);
@@ -179,6 +179,22 @@
   --tracking-wide: calc(var(--tracking-normal) + 0.025em);
   --tracking-wider: calc(var(--tracking-normal) + 0.05em);
   --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+
+  /* Primary color scale for Inspectra branding */
+  --color-primary-50: oklch(0.97 0.02 185);
+  --color-primary-100: oklch(0.94 0.04 185);
+  --color-primary-200: oklch(0.87 0.08 185);
+  --color-primary-300: oklch(0.78 0.12 185);
+  --color-primary-400: oklch(0.68 0.14 185);
+  --color-primary-500: oklch(0.58 0.16 185);
+  --color-primary-600: oklch(0.48 0.14 185);
+  --color-primary-700: oklch(0.40 0.12 185);
+  --color-primary-800: oklch(0.32 0.10 185);
+  --color-primary-900: oklch(0.24 0.08 185);
+
+  /* Dark mode backgrounds */
+  --color-dark-primary: oklch(0.18 0 0);
+  --color-dark-secondary: oklch(0.22 0 0);
 }
 
 body {

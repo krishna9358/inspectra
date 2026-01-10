@@ -53,6 +53,7 @@
     "dotenv": "^17.2.3",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.26",
+    "fslightbox-react": "^2.0.2",
     "gsap": "^3.14.2",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.561.0",
