@@ -13,42 +13,42 @@ import { Octokit } from "octokit";
 // =====================
 
 export const getContributionStats = async () => {
-    try {
-         const session = await auth.api.getSession({
-            headers: await headers(),
-         })
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
 
-         if(!session){
-          throw new Error("Unauthorized")
-         }
-
-         const token = await getGithubToken();
-         if(!token){
-            throw new Error("No github access token found")
-         }
-
-         const octokit = new Octokit({
-            auth: token,
-         })
-
-         const { data: users } = await octokit.rest.users.getAuthenticated();
-         const username = users.login;
-
-         const calendar = await fetchUserContribution(token, username);
-
-         if(!calendar){
-            return null;
-         }
-
-         const contributions = calendar.weeks.flatMap((week) => week.contributionDays.map((day)=>{
-          day : day.date;
-          count : day.contributionCount;
-          level : Math.min(4, Math.floor(day.contributionCount/3)) //convert to 0-4 scale
-      }))
-    } catch (error) {
-        
+    if (!session) {
+      throw new Error("Unauthorized");
     }
-}
+
+    const token = await getGithubToken();
+    if (!token) {
+      throw new Error("No github access token found");
+    }
+
+    const octokit = new Octokit({
+      auth: token,
+    });
+
+    const { data: users } = await octokit.rest.users.getAuthenticated();
+    const username = users.login;
+
+    const calendar = await fetchUserContribution(token, username);
+
+    if (!calendar) {
+      return null;
+    }
+
+    const contributions = calendar.weeks.flatMap((week) =>
+      week.contributionDays.map((day) => {
+        day: day.date;
+        count: day.contributionCount;
+        level: Math.min(4, Math.floor(day.contributionCount / 3)); //convert to 0-4 scale
+      })
+    );
+  } catch (error) {}
+};
 
 // =====================
 // Get Contrbution Stats
