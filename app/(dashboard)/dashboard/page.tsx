@@ -4,8 +4,9 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getDashboardStats, getMonthlyActivity } from "@/module/dashboard/actions";
 import { queryKey } from "@/config/queryKey";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GitBranch } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { GitBranch, GitCommit, GitPullRequest, MessageSquare } from "lucide-react";
+import ContributionGraph from "@/module/dashboard/component/contribution-graph";
 
 const page = () => {
   const {data:stats, isLoading:statsLoading} = useQuery({
@@ -39,11 +40,40 @@ const page = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Commits</CardTitle>
-            <GitBranch className="h-4 w-4 text-muted-foreground"/>
+            <GitCommit className="h-4 w-4 text-muted-foreground"/>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{statsLoading? "Loading..." : stats?.totalCommits || 0}</div>
-            <p className="text-xs text-muted-foreground">Total commits</p>
+            <p className="text-xs text-muted-foreground">In the last year</p>
+          </CardContent>
+        </Card>
+          <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total PRs</CardTitle>
+            <GitPullRequest className="h-4 w-4 text-muted-foreground"/>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{statsLoading? "Loading..." : stats?.totalPrs || 0}</div>
+            <p className="text-xs text-muted-foreground">All time</p>
+          </CardContent>
+        </Card>
+          <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">AI Reviews</CardTitle>
+            <MessageSquare className="h-4 w-4 text-muted-foreground"/>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{statsLoading? "Loading..." : stats?.totalReviews || 0}</div>
+            <p className="text-xs text-muted-foreground">Generated reviews</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Contribution Activity</CardTitle>
+            <CardDescription>Visualizing your coding frequency over the last year</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ContributionGraph />
           </CardContent>
         </Card>
 
