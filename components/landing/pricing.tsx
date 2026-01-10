@@ -1,69 +1,77 @@
-import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
 
-export function Pricing() {
-  return (
-    <section id="pricing" className="py-24 bg-[#0a0a0a]">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Simple pricing for modern teams</h2>
-          <p className="text-zinc-400 max-w-xl mx-auto">
-            Start for free, upgrade as you scale. No hidden fees.
-          </p>
-        </div>
+'use client';
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <PricingCard 
-            title="Free" 
-            price="$0" 
-            description="For open source and personal projects."
-            features={["Unlimited public repositories", "Basic security scanning", "Community support", "100 reviews / month"]}
-          />
-          <PricingCard 
-            title="Pro" 
-            price="$29" 
-            description="For individual professional developers."
-            highlight
-            features={["Unlimited private repositories", "Advanced security analysis", "Priority support", "Unlimited reviews", "Custom style guides"]}
-          />
-          <PricingCard 
-            title="Team" 
-            price="$99" 
-            description="For growing engineering teams."
-            features={["Everything in Pro", "SSO & SAML", "Team analytics dashboard", "Audit logs", "Dedicated success manager"]}
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
+import { useState } from 'react';
+import {
+    BILLING_PERIODS,
+    BILLING_PLANS,
+} from './pricing-data';
+import { cn } from '@/lib/utils';
+import { PricingCard } from './pricing-card';
+import { Subheading } from './subheading';
 
-function PricingCard({ title, price, description, features, highlight = false }: { title: string, price: string, description: string, features: string[], highlight?: boolean }) {
+type BillingPeriodKey = (typeof BILLING_PERIODS)[number]['key'];
+
+export default function PricingSection() {
+    const [activeBillingPeriodKey, setActiveBillingPeriodKey] = useState<BillingPeriodKey>(
+        'monthly'
+    );
+
     return (
-        <div className={`relative p-8 rounded-3xl border ${highlight ? 'border-purple-500 bg-purple-500/5' : 'border-white/10 bg-white/5'} flex flex-col`}>
-            {highlight && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
-                    Most Popular
+        <section id="pricing" className="pb-14 md:pb-28 dark:bg-[#171F2E]">
+            <div className="container px-4 mx-auto sm:px-6 lg:px-7">
+                <div className="max-w-2xl mx-auto mb-14 text-center">
+                    <Subheading text="Simple, Transparent Pricing" />
+                    <h2 className="mb-3 font-bold text-center text-gray-800 text-3xl dark:text-white/90 md:text-title-lg">
+                        Start Free, Scale When Ready
+                    </h2>
+                    <p className="text-gray-500 dark:text-gray-400">
+                        No credit card required. Start reviewing code in minutes.
+                    </p>
                 </div>
-            )}
-            <h3 className="text-lg font-medium text-zinc-400 mb-2">{title}</h3>
-            <div className="text-4xl font-bold text-white mb-4">
-                {price} <span className="text-lg font-normal text-zinc-500">/mo</span>
+
+                <div>
+                    {/* Billing Toggle */}
+                    <div className="flex justify-center relative z-30 mt-12">
+                        <div className="relative flex p-1 bg-white dark:bg-[#1D2939] rounded-full shadow-theme-xs">
+                            {BILLING_PERIODS.map((period) => (
+                                <button
+                                    key={period.key}
+                                    onClick={() => setActiveBillingPeriodKey(period.key)}
+                                    className={cn(
+                                        'relative flex items-center gap-2 px-6 py-2 text-sm font-medium transition-colors duration-200' +
+                                        ' rounded-full' +
+                                        ' text-gray-700 dark:text-gray-400',
+                                        {
+                                            'bg-gray-800 dark:bg-white/[0.05] text-white dark:text-white':
+                                                period.key === activeBillingPeriodKey,
+                                            'pr-2': period.saving,
+                                        }
+                                    )}
+                                >
+                                    {period.label}
+
+                                    {period.saving && (
+                                        <span className="bg-orange-400 text-white text-xs px-2 py-0.5 rounded-full">
+                                            Save {period.saving}
+                                        </span>
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="mt-12 z-30 relative space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-6xl lg:mx-auto lg:grid-cols-3 xl:grid-cols-4">
+                        {BILLING_PLANS.map((plan, index) => (
+                            <PricingCard
+                                key={index}
+                                plan={plan}
+                                billingPeriod={activeBillingPeriodKey}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
-            <p className="text-sm text-zinc-400 mb-8">{description}</p>
-            
-            <ul className="space-y-4 mb-8 flex-1">
-                {features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-zinc-300">
-                        <Check className={`w-4 h-4 ${highlight ? 'text-purple-400' : 'text-zinc-500'}`} />
-                        {feature}
-                    </li>
-                ))}
-            </ul>
-            
-            <Button className={`w-full h-12 rounded-xl text-base font-medium ${highlight ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white' : 'bg-white text-black hover:bg-zinc-200'}`}>
-                Get Started
-            </Button>
-        </div>
+        </section>
     );
 }
