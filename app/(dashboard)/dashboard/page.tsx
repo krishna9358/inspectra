@@ -1,5 +1,14 @@
 "use client";
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -100,7 +109,6 @@ const page = () => {
               <p className="text-xs text-muted-foreground">Generated reviews</p>
             </CardContent>
           </Card>
-
         </div>
         <Card>
           <CardHeader>
@@ -119,43 +127,55 @@ const page = () => {
             <CardHeader>
               <CardTitle>Monthly Activity Overview</CardTitle>
               <CardDescription>
-                Monthly Breakdown of commits, PRs, and AI reviews ( Last 6 Months )
+                Monthly Breakdown of commits, PRs, and AI reviews ( Last 6
+                Months )
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {
-                monthlyActivityLoading ? (
-                  <div className="h-80 w-full flex items-center justify-center">
-                    <Spinner />
-                  </div>
-                ) :
-                  <div className="h-80 w-full ">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart
-                        data={monthlyActivity || []}
-                        margin={{
-                          top: 5,
-                          right: 30,
-                          left: 20,
-                          bottom: 5,
+              {monthlyActivityLoading ? (
+                <div className="h-80 w-full flex items-center justify-center">
+                  <Spinner />
+                </div>
+              ) : (
+                <div className="h-80 w-full ">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={monthlyActivity || []}
+                      margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "var(--background)",
+                          borderRadius: "4px",
+                          padding: "8px",
+                          borderColor: "var(--border)",
+                          borderWidth: "1px",
                         }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip contentStyle={{ backgroundColor: "var(--background)", borderRadius: "4px", padding: "8px", borderColor: "var(--border)", borderWidth: "1px" }} itemStyle={{ color: "var(--foreground)" }} cursor={{ fill: "var(--background)", stroke: "var(--border)", strokeWidth: 1 }} />
-                        <Legend />
-                        <Bar dataKey="commits" fill="#8884d8" />
-                        <Bar dataKey="prs" fill="#894921" />
-                        <Bar dataKey="reviews" fill="#82ca9d" />
-                      </BarChart>
-                    </ResponsiveContainer>
-
-                  </div>
-              }
+                        itemStyle={{ color: "var(--foreground)" }}
+                        cursor={{
+                          fill: "var(--background)",
+                          stroke: "var(--border)",
+                          strokeWidth: 1,
+                        }}
+                      />
+                      <Legend />
+                      <Bar dataKey="commits" fill="#8884d8" />
+                      <Bar dataKey="prs" fill="#894921" />
+                      <Bar dataKey="reviews" fill="#82ca9d" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
             </CardContent>
           </Card>
-
         </div>
       </div>
     </>

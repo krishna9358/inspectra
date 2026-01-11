@@ -1,12 +1,12 @@
-'use client';
-import { CloseIcon, MenuIcon } from '@/components/landing/icons';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import DesktopNav from './desktop-nav';
-import MainMobileNav from './main-mobile-nav';
-import ThemeToggle from './theme-toggle';
-import { usePathname } from 'next/navigation';
+"use client";
+import { CloseIcon, MenuIcon } from "@/components/landing/icons";
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import DesktopNav from "./desktop-nav";
+import MainMobileNav from "./main-mobile-nav";
+import ThemeToggle from "./theme-toggle";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

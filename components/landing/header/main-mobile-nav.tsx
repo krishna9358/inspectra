@@ -1,8 +1,8 @@
-'use client';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { navItems } from './nav-items';
-import { cn } from '@/lib/utils';
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { navItems } from "./nav-items";
+import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -23,10 +23,10 @@ export default function MainMobileNav({ isOpen }: MobileMenuProps) {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'block px-3 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700',
+                  "block px-3 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700",
                   {
-                    'text-gray-800 dark:text-white': pathname === item.href,
-                  }
+                    "text-gray-800 dark:text-white": pathname === item.href,
+                  },
                 )}
               >
                 {item.label}
