@@ -45,7 +45,7 @@ export const getContributionStats = async () => {
         date: day.date,
         count: day.contributionCount,
         level: Math.min(4, Math.floor(day.contributionCount / 3)), //convert to 0-4 scale
-      }))
+      })),
     );
 
     return {

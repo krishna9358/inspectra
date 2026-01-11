@@ -49,22 +49,22 @@ export const AppSidebar = () => {
     {
       icon: Github,
       label: "Repository",
-      href: "/dashboard/repository",
+      href: "/repository",
     },
     {
       icon: BookOpen,
       label: "Reviews",
-      href: "/dashboard/reviews",
+      href: "/reviews",
     },
     {
       icon: BookOpen,
       label: "Subscription",
-      href: "/dashboard/subscription",
+      href: "/subscription",
     },
     {
       icon: Settings,
       label: "Settings",
-      href: "/dashboard/settings",
+      href: "/settings",
     },
   ];
 

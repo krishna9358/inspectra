@@ -188,8 +188,8 @@
   --color-primary-400: oklch(0.68 0.14 185);
   --color-primary-500: oklch(0.58 0.16 185);
   --color-primary-600: oklch(0.48 0.14 185);
-  --color-primary-700: oklch(0.40 0.12 185);
-  --color-primary-800: oklch(0.32 0.10 185);
+  --color-primary-700: oklch(0.4 0.12 185);
+  --color-primary-800: oklch(0.32 0.1 185);
   --color-primary-900: oklch(0.24 0.08 185);
 
   /* Dark mode backgrounds */
