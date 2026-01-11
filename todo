@@ -12,4 +12,4 @@
 
 // Technical Issues:
 1. Collecting and aggregating the monthly activity like prs, contributions and reviews. 
-2. 
+2. Write graphql Queries for octokit
