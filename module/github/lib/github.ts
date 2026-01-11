@@ -2,6 +2,7 @@ import { Octokit } from "octokit";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { headers } from "next/headers";
+import page from "@/app/(dashboard)/dashboard/page";
 
 // =====================
 // Getting GITHUB TOKEN
@@ -81,3 +82,26 @@ export const fetchUserContribution = async (
     console.log("Error wihle fetching Contribution Data ==> ", error);
   }
 };
+
+
+
+// =================
+// get all the repositories
+// =================
+
+export const getRepositories = async (page:number = 1, perPage:number = 10) =>{
+  const token = await getGithubToken();
+  const octokit = new Octokit({
+    auth: token,
+  });
+
+  const {data} = await octokit.rest.repos.listForAuthenticatedUser({
+    sort : "updated",
+    direction : "desc",
+    visibility:"all",
+    per_page: perPage,
+    page: page,
+  });
+
+  return data;
+}
