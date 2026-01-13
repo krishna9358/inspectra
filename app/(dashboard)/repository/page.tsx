@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { RepositoryListSkeleton } from "@/module/repository/components/repository-skeleton";
+import useConnectRepository from "@/module/repository/hooks/use-connect-repositories";
 import { useRepositories } from "@/module/repository/hooks/use-repositories";
 import { Eye, Search, Star, StarIcon } from "lucide-react";
 import Link from "next/link";
@@ -36,6 +37,8 @@ const RepositoryPage = () => {
         hasNextPage,
         isFetchingNextPage,
     } = useRepositories();
+
+    const  {mutate:connectRepository} = useConnectRepository();
     const [searchQuery, setSearchQuery] = React.useState("");
     const [localConnectingId, setLocalConnectingId] = React.useState<
         number | null
@@ -50,7 +53,10 @@ const RepositoryPage = () => {
     );
 
     const handleConnect = async (repo: Repository) => {
-        setLocalConnectingId(repo.id);
+        setLocalConnectingId(repo.id); 
+        connectRepository({owner: repo.full_name.split("/")[0], repo: repo.name, githubId: repo.id},{
+            onSettled:()=>{setLocalConnectingId(null)}
+        });
     };
 
 

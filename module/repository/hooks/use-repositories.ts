@@ -2,10 +2,11 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchRepositories } from "../actions";
+import { queryKey } from "@/config/queryKey";
 
 export const useRepositories = () => {
   return useInfiniteQuery({
-    queryKey: ["repositories"],
+    queryKey: [queryKey.REPOSITORIES],
     queryFn: async ({ pageParam = 1 }) => {
       const data = await fetchRepositories(pageParam, 10);
       return data;
