@@ -88,10 +88,10 @@ const Hero = () => (
       <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight leading-[1.05] mb-8">
         Cut code review time <br />
         & bugs in <span className="text-primary">           <PointerHighlight
-                        rectangleClassName="rounded-md bg-orange-500/12 ring-1 ring-inset ring-orange-400/20 backdrop-blur-[1px]"
-                        pointerClassName="text-orange-400 drop-shadow-[0_0_18px_rgba(255,165,0,0.35)]"
-                        containerClassName="inline-block relative max-w-full"
-                      >half Instantly.</PointerHighlight></span>
+          rectangleClassName="rounded-md bg-orange-500/12 ring-1 ring-inset ring-orange-400/20 backdrop-blur-[1px]"
+          pointerClassName="text-orange-400 drop-shadow-[0_0_18px_rgba(255,165,0,0.35)]"
+          containerClassName="inline-block relative max-w-full"
+        >half Instantly.</PointerHighlight></span>
       </motion.h1>
 
       <motion.p variants={fadeIn} className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-12 font-mono">
@@ -707,11 +707,11 @@ const BigFooter = () => (
     </div>
 
     {/* Big Text Overlay */}
-    <div className="w-full flex justify-center overflow-hidden pointer-events-none select-none opacity-50 relative h-[15vw] min-h-[100px]">
-      <span className="text-[18vw] font-bold leading-none text-transparent bg-clip-text bg-gradient-to-b from-white/5 to-transparent absolute -bottom-[4vw]">
+    <div className="w-full flex justify-center overflow-hidden pointer-events-none select-none relative h-[17vw] min-h-[200px]">
+      <span className="text-[20vw] shadow-text shadow-orange-500 font-bold leading-none text-transparent bg-clip-text bg-gradient-to-b from-white/10 to-transparent absolute -bottom-[4vw]">
         Inspectra
       </span>
-      <span className="text-[18vw] font-bold leading-none text-transparent stroke-text absolute -bottom-[4vw]" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>
+      <span className="text-[20vw] font-bold leading-none text-transparent stroke-text absolute -bottom-[4vw]" style={{ WebkitTextStroke: '1px rgba(235, 103, 26, 1)', filter: 'drop-shadow(0 0 20px rgba(235, 103, 26, 0.8))' }}>
         Inspectra
       </span>
     </div>
