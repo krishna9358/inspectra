@@ -4,5 +4,6 @@ export const queryKey = {
   CONTRIBUTION_GRAPH: "contribution-graph",
   REPOSITORIES: "repositories",
   CONNECT_REPOSITORIES: "connect-repositories",
+  USER_PROFILE: "user-profile",
   
 };
