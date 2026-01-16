@@ -118,11 +118,11 @@ hover: bg-destructive/90"
                 </div>
             </CardHeader>
             <CardContent>
-                (!repositories || repositories. length === 0 ? [ <div className="text-center py-8 text-muted-foreground"> <p>No repositories connected yet.</p>
+                {!repositories || repositories.length === 0 ? <div className="text-center py-8 text-muted-foreground"> <p>No repositories connected yet.</p>
                     <p className="text-sm mt-2">Connect repositories from the Repository page.</p>
                 </div>
-                : (<div className="space-y-4"> {repositories?.map((repo) =>
-                    <div
+                : <div className="space-y-4"> {repositories?.map((repo) =>
+                    <div    
                         key={repo.id}
                         className="flex items-center justify-between p-4 border rounded-1g
 hover: bg-muted/50 transition-colors">
@@ -143,7 +143,7 @@ hover: bg-muted/50 transition-colors">
                                     disabled={disconnecteMutation.isPending}
                                     className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                                 >
-                                    {disconnecteMutation.isPending ? "Disconnecting..." : "Disconnect"}
+                                    {disconnecteMutation.isPending ? "Disconnecting..." : <Trash2 className="h-4 w-4" />}
                                 </Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
@@ -166,7 +166,7 @@ hover: bg-muted/50 transition-colors">
                         </AlertDialog>
                     </div>
                 )}
-                </div>)
+                </div>}
 
 
 
