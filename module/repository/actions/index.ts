@@ -5,7 +5,6 @@ import prisma from "@/lib/db";
 import { createWebhook, getRepositories } from "@/module/github/lib/github";
 import { headers } from "next/headers";
 
-
 // =================
 // Fetch Repositories
 // =================
@@ -35,30 +34,33 @@ export const fetchRepositories = async (
   }));
 };
 
-
 // =================
-// Connect Repository  
+// Connect Repository
 // =================
 
-export const connectRepository = async (owner:string, repo:string, githubid:number) =>{
+export const connectRepository = async (
+  owner: string,
+  repo: string,
+  githubid: number,
+) => {
   const session = await auth.api.getSession({
     headers: await headers(),
-  })
-  if(!session){
+  });
+  if (!session) {
     throw new Error("Unauthorized");
   }
   // TODO: Check if user can connect more repo, rate limiting
   const webhook = await createWebhook(owner, repo);
-  
-  if(webhook){
+
+  if (webhook) {
     await prisma.repository.create({
       data: {
         githubId: BigInt(githubid),
         name: repo,
-        owner: owner, 
+        owner: owner,
         fullName: `${owner}/${repo}`,
         url: `https://github.com/${owner}/${repo}`,
-         userId: session.user.id,
+        userId: session.user.id,
       },
     });
   }
@@ -67,5 +69,5 @@ export const connectRepository = async (owner:string, repo:string, githubid:numb
 
   // TODO: Trigger Repository indexing for rag (fire and forget)
 
-  return webhook;   
-}
+  return webhook;
+};
