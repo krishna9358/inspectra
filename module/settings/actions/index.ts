@@ -93,13 +93,12 @@ export async function getConnectRepositories() {
     });
     return repositories;
   } catch (error) {
-    console.log(" error fetchiing connected repositories" ,error);
+    console.log(" error fetchiing connected repositories", error);
     return [];
   }
 }
 
-
-export async function disconnectRepository(id:string){
+export async function disconnectRepository(id: string) {
   try {
     const session = await auth.api.getSession({
       headers: await headers(),
@@ -116,7 +115,7 @@ export async function disconnectRepository(id:string){
     if (!repository) {
       throw new Error("Repository not found");
     }
-    await deleteWebhook(repository.owner, repository.name)
+    await deleteWebhook(repository.owner, repository.name);
     await prisma.repository.delete({
       where: {
         id: id,
@@ -126,10 +125,10 @@ export async function disconnectRepository(id:string){
     revalidatePath("/dashboard/settings", "page");
     revalidatePath("/dashboard/repository", "page");
     return {
-      success: true
+      success: true,
     };
   } catch (error) {
-    console.log(" error disconnecting repository" ,error);
+    console.log(" error disconnecting repository", error);
     return {
       success: false,
       error: error,
@@ -137,8 +136,7 @@ export async function disconnectRepository(id:string){
   }
 }
 
-
-export async function disconnectAllRepository(){
+export async function disconnectAllRepository() {
   try {
     const session = await auth.api.getSession({
       headers: await headers(),
@@ -154,9 +152,11 @@ export async function disconnectAllRepository(){
     if (!repositories) {
       throw new Error("Repositories not found");
     }
-    await Promise.all(repositories.map(async (repository) => {
-      await deleteWebhook(repository.owner, repository.name)
-    }));
+    await Promise.all(
+      repositories.map(async (repository) => {
+        await deleteWebhook(repository.owner, repository.name);
+      }),
+    );
     await prisma.repository.deleteMany({
       where: {
         userId: session.user.id,
@@ -166,10 +166,10 @@ export async function disconnectAllRepository(){
     revalidatePath("/dashboard/repository", "page");
     return {
       success: true,
-      count: repositories.length
+      count: repositories.length,
     };
   } catch (error) {
-    console.log(" error disconnecting all repositories" ,error);
+    console.log(" error disconnecting all repositories", error);
     return {
       success: false,
       error: error,
