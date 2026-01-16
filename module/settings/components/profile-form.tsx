@@ -2,7 +2,7 @@
 
 import { queryKey } from "@/config/queryKey";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getUserProfile, updateUserProfile } from "../actions";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -24,12 +24,12 @@ export function ProfileForm(){
         refetchOnWindowFocus: false,
     })
 
-    useState(()=>{
+    useEffect(()=>{
         if(profile){
             setName(profile.name || "")
             setEmail(profile.email || "")
         }
-    });
+    },[profile]);
 
     const updateMutation = useMutation({
         mutationFn: async(data:{name?: string, email?: string}) => {
