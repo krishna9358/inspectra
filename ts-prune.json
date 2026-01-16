@@ -1,0 +1,17 @@
+{
+  "ignore": [
+    "**/app/**/page.tsx",
+    "**/app/**/layout.tsx",
+    "**/app/**/loading.tsx",
+    "**/app/**/error.tsx",
+    "**/app/**/not-found.tsx",
+    "**/app/**/route.ts",
+    "**/middleware.ts",
+    "**/next.config.*",
+    "**/estlint.config.*",
+    "**/postcss.config.*",
+    "**/tailwind.config.*",
+    "**/*.d.ts",
+    "**/app/components/ui/**"
+  ]
+}

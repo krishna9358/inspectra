@@ -44,8 +44,8 @@ function CustomLoginForm() {
         </span>
       </Button>
     </div>
-  )
-}
+  );
+};
 
 export default function LoginPage() {
   return (
