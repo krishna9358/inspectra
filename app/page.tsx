@@ -683,7 +683,7 @@ const BigFooter = () => (
               placeholder="youremail@domain.com"
               className="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary transition-colors"
             />
-            <Button className="w-full border border-orange-500 text-orange-500 hover:bg-orange-500/10">Subscribe</Button>
+            <Button className="w-full border text-white border-orange-500 hover:bg-orange-500/10">Subscribe</Button>
             <p className="text-[10px] text-muted-foreground">
               By signing up you agree to our <Link href="#" className="underline decoration-muted-foreground">Terms of Use</Link> and <Link href="#" className="underline decoration-muted-foreground">Privacy Policy</Link>
             </p>
