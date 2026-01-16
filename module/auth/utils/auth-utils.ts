@@ -3,8 +3,9 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
 export const requireAuth = async () => {
+  const headersList = await headers();
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: headersList,
   });
   if (!session) {
     redirect("/login");
@@ -13,8 +14,9 @@ export const requireAuth = async () => {
 };
 
 export const requireUnAuth = async () => {
+  const headersList = await headers();
   const session = await auth.api.getSession({
-    headers: await headers(),
+    headers: headersList,
   });
   if (session) {
     redirect("/dashboard");

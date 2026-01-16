@@ -1,3 +1,4 @@
+
 import React from "react";
 import { requireAuth } from "@/module/auth/utils/auth-utils";
 import { AppSidebar } from "@/components/app-sidebar";
