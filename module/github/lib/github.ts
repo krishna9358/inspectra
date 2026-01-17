@@ -329,3 +329,16 @@ export async function getPullRequestDiff(
     description: pr.body || "",
   };
 }
+
+
+export async function postReviewComment(token: string, owner:string, repo:string, prNumber:number, review:string){
+    const octokit = new Octokit({
+        auth: token,
+    });
+    await octokit.rest.issues.createComment({
+        owner,
+        repo,
+        issue_number: prNumber,
+        body: `## AI CODE REVIEW \n\n ${review} \n\n -- \n *Powered by Inspectra* \n\n `,
+    });
+}
