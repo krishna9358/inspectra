@@ -1,7 +1,7 @@
 import prisma from "@/lib/db";
 import { inngest } from "../client";
 import { getRepoFileContents } from "@/module/github/lib/github";
-import { indexCodebase } from "@/module/github/lib/ai/lib/rag";
+import { indexCodebase } from "@/module/ai/lib/rag";
 
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
