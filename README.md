@@ -26,6 +26,7 @@
 
 - 🤖 **Context-Aware AI Reviews**: Unlike generic code reviewers, Inspectra indexes your entire codebase to understand project patterns and conventions
 - 🔗 **Deep GitHub Integration**: Seamless webhook-based automation for real-time PR reviews
+- 💬 **Automated PR Comments**: AI-generated reviews posted directly to your Pull Requests
 - 📊 **Rich Analytics**: Comprehensive dashboards with contribution graphs and activity metrics
 - ⚡ **Background Processing**: Inngest-powered async jobs for reliable, scalable operations
 
@@ -102,12 +103,13 @@
 
 ### AI & Machine Learning
 
-| Technology             | Purpose                  |
-| ---------------------- | ------------------------ |
-| **Google Gemini AI**   | LLM for code analysis    |
-| **text-embedding-004** | Embedding generation     |
-| **Vercel AI SDK**      | AI integration framework |
-| **Pinecone**           | Vector similarity search |
+| Technology        | Purpose                  |
+| ----------------- | ------------------------ |
+| **OpenRouter**    | AI model gateway         |
+| **Qwen3 Coder**   | LLM for code analysis    |
+| **Google Gemini** | Embedding generation     |
+| **Vercel AI SDK** | AI integration framework |
+| **Pinecone**      | Vector similarity search |
 
 ### Integrations
 
@@ -159,7 +161,7 @@
                     ▼               ▼               ▼
            ┌──────────────┐ ┌─────────────┐ ┌─────────────────┐
            │  PostgreSQL  │ │  Pinecone   │ │    Inngest      │
-           │  (Prisma)    │ │  (Vectors)  │ │ (Background Jobs│
+           │  (Prisma)    │ │  (Vectors)  │ │(Background Jobs)│
            └──────────────┘ └─────────────┘ └─────────────────┘
                                                     │
                                                     ▼
@@ -183,6 +185,23 @@
 │ Stored   │◀──│  Upsert    │◀──│  Generate   │◀──│  Fetch All   │
 │   in     │    │ to Pinecone│    │ Embeddings  │    │  Repo Files  │
 │ Pinecone │    │  (Batched) │    │ (Google AI) │    │  (Octokit)   │
+└──────────┘    └────────────┘    └─────────────┘    └──────────────┘
+```
+
+### Data Flow: AI Code Review for Pull Requests
+
+```
+┌──────────┐    ┌────────────┐    ┌─────────────┐    ┌──────────────┐
+│  GitHub  │───▶│  Webhook   │───▶│ reviewPull- │───▶│  Inngest     │
+│    PR    │    │  Handler   │    │  Request()  │    │   Event      │
+│  Event   │    │            │    │  Action     │    │ pr.review.*  │
+└──────────┘    └────────────┘    └─────────────┘    └──────────────┘
+                                                            │
+                                                            ▼
+┌──────────┐    ┌────────────┐    ┌─────────────┐    ┌──────────────┐
+│ fetch-   │───▶│ retrieve-  │───▶│ generate-   │───▶│ post-comment │
+│ pr-data  │    │ context    │    │ ai-review   │    │ & save-review│
+│ (Octokit)│    │ (Pinecone) │    │ (OpenRouter)│    │ (GitHub/DB)  │
 └──────────┘    └────────────┘    └─────────────┘    └──────────────┘
 ```
 
@@ -214,7 +233,8 @@ inspectra/
 ├── inngest/                      # Background job definitions
 │   ├── client.ts                 # Inngest client
 │   └── functions/                # Job functions
-│       └── index.ts              # Repository indexing jobs
+│       ├── index.ts              # Repository indexing jobs
+│       └── review.ts             # AI code review job
 │
 ├── lib/                          # Shared utilities
 │   ├── auth.ts                   # Better Auth configuration
@@ -223,12 +243,18 @@ inspectra/
 │   └── generated/prisma/         # Generated Prisma client
 │
 ├── module/                       # Feature modules
+│   ├── ai/                       # AI module
+│   │   ├── actions/              # Server actions
+│   │   │   └── index.ts          # reviewPullRequest action
+│   │   ├── lib/
+│   │   │   ├── openrouter.ts     # OpenRouter provider
+│   │   │   └── rag.ts            # RAG implementation
+│   │   └── prompt.ts             # AI prompt generator
 │   ├── auth/                     # Auth components & hooks
 │   ├── dashboard/                # Dashboard components
 │   ├── github/                   # GitHub integration
 │   │   └── lib/
-│   │       ├── github.ts         # Octokit utilities
-│   │       └── ai/lib/rag.ts     # RAG implementation
+│   │       └── github.ts         # Octokit utilities
 │   ├── repository/               # Repository management
 │   └── settings/                 # Settings management
 │
@@ -271,6 +297,7 @@ GITHUB_CLIENT_SECRET="your-github-client-secret"
 
 # AI & Vector Database
 GOOGLE_API_KEY="your-google-ai-api-key"
+OPENROUTER_API_KEY="your-openrouter-api-key"
 PINECONE_DB_API_KEY="your-pinecone-api-key"
 
 # Application

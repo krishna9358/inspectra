@@ -1,4 +1,7 @@
-import { getPullRequestDiff, postReviewComment } from "@/module/github/lib/github";
+import {
+  getPullRequestDiff,
+  postReviewComment,
+} from "@/module/github/lib/github";
 import { inngest } from "../client";
 import { retrieveContext } from "@/module/ai/lib/rag";
 import prisma from "@/lib/db";
@@ -53,37 +56,37 @@ export const generateReview = inngest.createFunction(
       const { text } = await generateText({
         model: openrouter("qwen/qwen3-coder:free"),
         prompt,
-      });   
+      });
 
       return text;
     });
 
-    await step.run("post-comment", async ()=>{
-        await postReviewComment(token, owner, repo, prNumber, review);
-    })
-    await step.run("save-review", async ()=>{
-        const repository = await prisma.repository.findFirst({
-            where: {
-                owner,
-                name: repo,
-            },
+    await step.run("post-comment", async () => {
+      await postReviewComment(token, owner, repo, prNumber, review);
+    });
+    await step.run("save-review", async () => {
+      const repository = await prisma.repository.findFirst({
+        where: {
+          owner,
+          name: repo,
+        },
+      });
+      if (!repository) {
+        throw new Error(`Repository ${owner}/${repo} not found`);
+      }
+      if (repository) {
+        await prisma.review.create({
+          data: {
+            repositoryId: repository.id,
+            prNumber,
+            prTitle: title,
+            prUrl: `https://github.com/${owner}/${repo}/pull/${prNumber}`,
+            review,
+            status: "completed",
+          },
         });
-        if (!repository) {
-            throw new Error(`Repository ${owner}/${repo} not found`);
-        }
-        if(repository){
-            await prisma.review.create({
-                data: {
-                    repositoryId: repository.id,
-                    prNumber,
-                    prTitle: title,
-                    prUrl: `https://github.com/${owner}/${repo}/pull/${prNumber}`,
-                    review,
-                    status: "completed",
-                },
-            });
-        }
-    })
-    return {success:true}
+      }
+    });
+    return { success: true };
   },
 );

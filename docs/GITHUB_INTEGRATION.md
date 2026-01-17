@@ -292,36 +292,118 @@ export const deleteWebhook = async (owner: string, repo: string) => {
 
 ### Webhook Handler
 
+The webhook handler receives events from GitHub and triggers the AI review process:
+
 ```typescript
 // /app/api/webhooks/github/route.ts
+import { reviewPullRequest } from "@/module/ai/actions";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const event = req.headers.get("x-github-event");
+  try {
+    const body = await req.json();
+    const event = req.headers.get("x-github-event");
 
-  // Handle different event types
-  switch (event) {
-    case "pull_request":
-      await handlePullRequest(body);
-      break;
-    case "push":
-      await handlePush(body);
-      break;
-    default:
-      console.log(`Unhandled event: ${event}`);
+    // Handle ping event (webhook verification)
+    if (event === "ping") {
+      return NextResponse.json({ message: "pong" }, { status: 200 });
+    }
+
+    // Handle pull_request events
+    if (event === "pull_request") {
+      const action = body.action;
+      const repo = body.repository.full_name;
+      const prNumber = body.number;
+      const [owner, repoName] = repo.split("/");
+
+      if (action === "opened" || action === "synchronize") {
+        reviewPullRequest(owner, repoName, prNumber)
+          .then(() => console.log(`Review completed for ${repo} #${prNumber}`))
+          .catch((error) =>
+            console.log(`Review failed for ${repo} #${prNumber}`, error),
+          );
+      }
+    }
+
+    return NextResponse.json({ message: "Event Processed", status: 200 });
+  } catch (error) {
+    console.log("Error processing webhook", error);
+    return NextResponse.json({
+      message: "Error processing webhook",
+      status: 500,
+    });
   }
-
-  return NextResponse.json({ received: true });
 }
+```
 
-async function handlePullRequest(payload: any) {
-  const { action, pull_request, repository } = payload;
+### Pull Request Functions
 
-  if (action === "opened" || action === "synchronize") {
-    // Trigger AI review (future implementation)
-    console.log(`PR ${action}: ${pull_request.title}`);
-  }
+#### Get Pull Request Diff
+
+Fetches the PR title, description, and diff for AI review:
+
+```typescript
+export async function getPullRequestDiff(
+  token: string,
+  owner: string,
+  repo: string,
+  prNumber: number,
+) {
+  const octokit = new Octokit({ auth: token });
+
+  // Get PR metadata
+  const { data: pr } = await octokit.rest.pulls.get({
+    owner,
+    repo,
+    pull_number: prNumber,
+  });
+
+  // Get PR diff
+  const { data: diff } = await octokit.rest.pulls.get({
+    owner,
+    repo,
+    pull_number: prNumber,
+    mediaType: { format: "diff" },
+  });
+
+  return {
+    title: pr.title,
+    diff: diff as unknown as string,
+    description: pr.body || "",
+  };
+}
+```
+
+**Returns:**
+
+```typescript
+type PRDiffResponse = {
+  title: string; // PR title
+  diff: string; // Full diff content
+  description: string; // PR body/description
+};
+```
+
+#### Post Review Comment
+
+Posts the AI-generated review as a comment on the PR:
+
+```typescript
+export async function postReviewComment(
+  token: string,
+  owner: string,
+  repo: string,
+  prNumber: number,
+  review: string,
+) {
+  const octokit = new Octokit({ auth: token });
+
+  await octokit.rest.issues.createComment({
+    owner,
+    repo,
+    issue_number: prNumber,
+    body: `## AI CODE REVIEW \n\n ${review} \n\n -- \n *Powered by Inspectra* \n\n `,
+  });
 }
 ```
 

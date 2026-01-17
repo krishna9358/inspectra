@@ -7,8 +7,8 @@ This document covers Inspectra's background job system powered by Inngest for re
 **Inngest** is used for:
 
 - Repository indexing after connection
-- (Future) AI code review generation
-- (Future) Webhook event processing
+- **AI code review generation** for Pull Requests
+- Webhook event processing
 - (Future) Scheduled maintenance tasks
 
 ---
@@ -43,10 +43,11 @@ export const inngest = new Inngest({ id: "inspectra" });
 import { serve } from "inngest/next";
 import { inngest } from "@/inngest/client";
 import { helloWorld, indexRepo } from "@/inngest/functions";
+import { generateReview } from "@/inngest/functions/review";
 
 export const { GET, POST, PUT } = serve({
   client: inngest,
-  functions: [helloWorld, indexRepo],
+  functions: [helloWorld, indexRepo, generateReview],
 });
 ```
 
@@ -352,41 +353,143 @@ try {
 
 ---
 
-## Future Functions
+## Implemented Functions
 
-### reviewPullRequest (Planned)
+### generateReview
+
+Triggered when a Pull Request is opened or synchronized. Generates an AI-powered code review using OpenRouter/Qwen and posts it as a comment on GitHub.
 
 ```typescript
-export const reviewPullRequest = inngest.createFunction(
-  { id: "review-pull-request" },
-  { event: "github.pull_request" },
+// /inngest/functions/review.ts
+import {
+  getPullRequestDiff,
+  postReviewComment,
+} from "@/module/github/lib/github";
+import { inngest } from "../client";
+import { retrieveContext } from "@/module/ai/lib/rag";
+import prisma from "@/lib/db";
+import { generateReviewPrompt } from "@/module/ai/prompt";
+import { generateText } from "ai";
+import { openrouter } from "@/module/ai/lib/openrouter";
+
+export const generateReview = inngest.createFunction(
+  { id: "generate-review", concurrency: 5 },
+  { event: "pr.review.requested" },
   async ({ event, step }) => {
-    const { owner, repo, pullNumber } = event.data;
+    const { owner, repo, prNumber, userId } = event.data;
 
-    // Step 1: Fetch PR diff
-    const diff = await step.run("fetch-diff", async () => {
-      return await fetchPRDiff(owner, repo, pullNumber);
-    });
+    // Step 1: Fetch PR data (title, diff, description)
+    const { diff, title, description, token } = await step.run(
+      "fetch-pr-data",
+      async () => {
+        const account = await prisma.account.findFirst({
+          where: { userId, providerId: "github" },
+        });
+        if (!account?.accessToken) {
+          throw new Error("No github access token found");
+        }
+        const { title, diff, description } = await getPullRequestDiff(
+          account.accessToken,
+          owner,
+          repo,
+          prNumber,
+        );
+        return { title, diff, description, token: account.accessToken };
+      },
+    );
 
-    // Step 2: Retrieve context
+    // Step 2: Retrieve context from Pinecone
     const context = await step.run("retrieve-context", async () => {
-      return await retrieveContext(diff, `${owner}/${repo}`);
+      const query = `${title}\n${description}`;
+      return await retrieveContext(query, `${owner}/${repo}`);
     });
 
-    // Step 3: Generate review
-    const review = await step.run("generate-review", async () => {
-      return await generateReview(diff, context);
+    // Step 3: Generate AI review using OpenRouter
+    const review = await step.run("generate-ai-review", async () => {
+      const prompt = generateReviewPrompt({
+        title,
+        description,
+        context,
+        diff,
+      });
+      const { text } = await generateText({
+        model: openrouter("qwen/qwen3-coder:free"),
+        prompt,
+      });
+      return text;
     });
 
-    // Step 4: Post to GitHub
-    await step.run("post-review", async () => {
-      await postReviewToGitHub(owner, repo, pullNumber, review);
+    // Step 4: Post review as comment on GitHub PR
+    await step.run("post-comment", async () => {
+      await postReviewComment(token, owner, repo, prNumber, review);
+    });
+
+    // Step 5: Save review to database
+    await step.run("save-review", async () => {
+      const repository = await prisma.repository.findFirst({
+        where: { owner, name: repo },
+      });
+      if (!repository) {
+        throw new Error(`Repository ${owner}/${repo} not found`);
+      }
+      await prisma.review.create({
+        data: {
+          repositoryId: repository.id,
+          prNumber,
+          prTitle: title,
+          prUrl: `https://github.com/${owner}/${repo}/pull/${prNumber}`,
+          review,
+          status: "completed",
+        },
+      });
     });
 
     return { success: true };
   },
 );
 ```
+
+#### Event Schema
+
+```typescript
+type PRReviewRequestedEvent = {
+  name: "pr.review.requested";
+  data: {
+    owner: string; // Repository owner (e.g., "krishna9358")
+    repo: string; // Repository name (e.g., "inspectra")
+    prNumber: number; // Pull request number
+    userId: string; // User ID from the database
+  };
+};
+```
+
+#### Triggering the Event
+
+The event is triggered from the GitHub webhook handler:
+
+```typescript
+// In /app/api/webhooks/github/route.ts
+if (event === "pull_request") {
+  if (action === "opened" || action === "synchronize") {
+    reviewPullRequest(owner, repoName, prNumber);
+  }
+}
+
+// In /module/ai/actions/index.ts
+await inngest.send({
+  name: "pr.review.requested",
+  data: {
+    owner,
+    repo,
+    prNumber,
+    userId: repository.user.id,
+  },
+});
+```
+
+---
+
+## Future Functions
 
 ### syncRepository (Planned)
 
