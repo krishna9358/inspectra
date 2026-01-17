@@ -7,4 +7,5 @@ export const queryKey = {
   USER_PROFILE: "user-profile",
   USER_REPOS: "connected-repo",
   DISCONNECT_REPOSITORY: "disconnect-repository",
+  REVIEWS: "reviews",
 };
