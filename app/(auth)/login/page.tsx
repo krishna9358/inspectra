@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import { LoginForm } from "@/module/auth/components/login-form";
 import Link from "next/link";
-import { Rabbit, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import { signIn } from "@/lib/auth-client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -54,13 +53,13 @@ export default function LoginPage() {
       <div className="hidden lg:flex flex-1 flex-col justify-between p-12 lg:p-16 relative">
         {/* Logo */}
         <Link href="/">
-        <div className="flex items-center gap-2">
-          <div className="size-8 bg-primary rounded-full flex items-center justify-center">
-            {/* Placeholder for Inspectra Logo */}
-            <span className="font-bold text-primary-foreground">I</span>
+          <div className="flex items-center gap-2">
+            <div className="size-8 bg-primary rounded-full flex items-center justify-center">
+              {/* Placeholder for Inspectra Logo */}
+              <span className="font-bold text-primary-foreground">I</span>
+            </div>
+            <span className="text-xl font-bold tracking-tight">Inspectra</span>
           </div>
-          <span className="text-xl font-bold tracking-tight">Inspectra</span>
-        </div>
         </Link>
 
         {/* Hero Text */}
@@ -91,10 +90,10 @@ export default function LoginPage() {
         <div className="lg:hidden absolute top-8 left-8 flex items-center gap-2 mb-12">
           <Link href="/">
 
-          <div className="size-8 bg-primary rounded-full flex items-center justify-center">
-            <span className="font-bold text-primary-foreground">I</span>
-          </div>
-          <span className="text-xl font-bold tracking-tight">Inspectra</span>
+            <div className="size-8 bg-primary rounded-full flex items-center justify-center">
+              <span className="font-bold text-primary-foreground">I</span>
+            </div>
+            <span className="text-xl font-bold tracking-tight">Inspectra</span>
           </Link  >
         </div>
 

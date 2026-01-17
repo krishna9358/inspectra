@@ -5,7 +5,6 @@ import {
 } from "@/module/github/lib/github";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import prisma from "@/lib/db";
 import { Octokit } from "octokit";
 
 // =====================
@@ -200,16 +199,22 @@ export const getMonthlyActivity = async () => {
     }
 
     // 8. Process contribution calendar to count commits per month
-    calendar.weeks.forEach((week: any) => {
-      week.contributionDays.forEach((day: any) => {
-        const date = new Date(day.date);
-        const monthKey = monthNames[date.getMonth()];
-        // Only aggregate if the month is within our initialized range (last 6 months)
-        if (monthlyData[monthKey]) {
-          monthlyData[monthKey].commits += day.contributionCount;
-        }
-      });
-    });
+    calendar.weeks.forEach(
+      (week: {
+        contributionDays: { date: string; contributionCount: number }[];
+      }) => {
+        week.contributionDays.forEach(
+          (day: { date: string; contributionCount: number }) => {
+            const date = new Date(day.date);
+            const monthKey = monthNames[date.getMonth()];
+            // Only aggregate if the month is within our initialized range (last 6 months)
+            if (monthlyData[monthKey]) {
+              monthlyData[monthKey].commits += day.contributionCount;
+            }
+          },
+        );
+      },
+    );
 
     // 9. Prepare date range for fetching other data (last 6 months)
     const sixMonthsAgo = new Date();
@@ -253,7 +258,7 @@ export const getMonthlyActivity = async () => {
     });
 
     // 13. Aggregate PRs count per month
-    prs.items.forEach((pr: any) => {
+    prs.items.forEach((pr: { created_at: string }) => {
       const date = new Date(pr.created_at);
       const monthKey = monthNames[date.getMonth()];
       if (monthlyData[monthKey]) {

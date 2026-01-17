@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { RepositoryListSkeleton } from "@/module/repository/components/repository-skeleton";
 import useConnectRepository from "@/module/repository/hooks/use-connect-repositories";
 import { useRepositories } from "@/module/repository/hooks/use-repositories";
-import { Eye, Search, Star, StarIcon } from "lucide-react";
+import { Eye, Search, StarIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 
@@ -20,11 +20,11 @@ interface Repository {
   id: number;
   name: string;
   full_name: string;
-  description: string;
+  description: string | null;
   html_url: string;
   stargazers_count: number;
-  language: string;
-  topics: string[];
+  language: string | null;
+  topics?: string[];
   isConnected?: boolean;
 }
 
@@ -70,6 +70,7 @@ const RepositoryPage = () => {
 
   // implementing the infinite scroll
   useEffect(() => {
+    const currentTarget = observerTarget.current;
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
@@ -79,12 +80,12 @@ const RepositoryPage = () => {
       { threshold: 0.1 },
     );
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
+    if (currentTarget) {
+      observer.observe(currentTarget);
     }
     return () => {
-      if (observerTarget.current) {
-        observer.unobserve(observerTarget.current);
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
       }
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);

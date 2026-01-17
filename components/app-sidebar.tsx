@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
+import React, { useSyncExternalStore } from "react";
 import { Github, BookOpen, Settings, Moon, Sun, LogOut } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import {
@@ -13,7 +12,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -23,18 +21,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-
-import { Button } from "./ui/button";
 import LogoutButton from "@/module/auth/components/logout-button";
+
+// Helper for hydration-safe mounting check
+const emptySubscribe = () => () => { };
+const getSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 export const AppSidebar = () => {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(emptySubscribe, getSnapshot, getServerSnapshot);
   const pathname = usePathname();
   const { data: session } = useSession();
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   if (!mounted) {
     return <div className="h-full w-full animate-pulse bg-muted" />;
