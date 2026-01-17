@@ -52,3 +52,17 @@ export async function indexCodebase(repoId:string, files:{path:string, content:s
         }
     }
 }
+
+
+export async function retrieveContext(query:string, repoId:string, topK:number=5){
+    const embedding = await generateEmbedding(query);
+    const results = await pineconeIndex.query({
+        vector: embedding,
+        topK,
+        filter: {
+            repoId
+        },
+        includeMetadata: true
+    });
+    return results.matches.map(match=> match.metadata?.content as string).filter(Boolean);
+}
