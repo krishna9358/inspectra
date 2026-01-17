@@ -12,6 +12,8 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.10",
+    "@ai-sdk/openai": "^3.0.12",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.2",
     "@openrouter/ai-sdk-provider": "^1.5.4",
@@ -68,6 +70,7 @@
     "octokit": "^5.0.5",
     "pg": "^8.16.3",
     "prettier": "^3.7.4",
+    "qwen-ai-provider": "^0.1.1",
     "react": "19.2.1",
     "react-activity-calendar": "^3.0.5",
     "react-day-picker": "^9.12.0",
