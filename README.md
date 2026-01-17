@@ -337,7 +337,7 @@ NEXT_PUBLIC_APP_BASE_URL="http://localhost:3000"
 5. **Start Inngest Dev Server** (in a separate terminal)
 
    ```bash
-   npx inngest-cli@latest dev
+   npx --ignore-scripts=false inngest-cli@latest dev
    ```
 
 6. Open [http://localhost:3000](http://localhost:3000) to view the application.
