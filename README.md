@@ -1,121 +1,281 @@
-# Inspectra
+<div align="center">
+  <h1>🔍 Inspectra</h1>
+  <p><strong>AI-Powered Code Review & Repository Intelligence Platform</strong></p>
+  
+  <p>
+    <a href="#features">Features</a> •
+    <a href="#tech-stack">Tech Stack</a> •
+    <a href="#architecture">Architecture</a> •
+    <a href="#getting-started">Getting Started</a> •
+    <a href="#documentation">Documentation</a>
+  </p>
 
-**Inspectra** is an intelligent, AI-powered code review assistant and repository management platform designed to streamline your development workflow. By leveraging advanced LLMs (Gemini 2.5) and RAG technology, Inspectra provides deep, context-aware insights into your code, automates reviews, and offers comprehensive analytics for your GitHub repositories.
+  <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" alt="Next.js 16">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react" alt="React 19">
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Tailwind-4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind 4">
+</div>
 
 ---
 
-## Tech Stack
+## 📖 Overview
+
+**Inspectra** is an intelligent, AI-powered code review assistant and repository management platform designed to streamline your development workflow. By leveraging advanced LLMs (Google Gemini) and RAG (Retrieval-Augmented Generation) technology with Pinecone vector database, Inspectra provides deep, context-aware insights into your code, automates reviews, and offers comprehensive analytics for your GitHub repositories.
+
+### Why Inspectra?
+
+- 🤖 **Context-Aware AI Reviews**: Unlike generic code reviewers, Inspectra indexes your entire codebase to understand project patterns and conventions
+- 🔗 **Deep GitHub Integration**: Seamless webhook-based automation for real-time PR reviews
+- 📊 **Rich Analytics**: Comprehensive dashboards with contribution graphs and activity metrics
+- ⚡ **Background Processing**: Inngest-powered async jobs for reliable, scalable operations
+
+---
+
+## ✨ Features
+
+### 🔍 AI-Powered Code Reviews
+
+- Automated review generation for Pull Requests using Google Gemini AI
+- RAG-based context retrieval from your indexed codebase via Pinecone
+- Rich feedback including walkthroughs, summaries, issue identification, and suggestions
+
+### 🔗 GitHub Integration
+
+- OAuth-based authentication via GitHub
+- Multi-repository management with connect/disconnect workflow
+- Webhook automation for real-time PR handling
+- Direct comments and reviews posted to GitHub PRs
+
+### 🧠 RAG Implementation
+
+- Automatic codebase indexing using vector embeddings
+- Semantic search across your entire project
+- Context-aware code understanding for accurate reviews
+
+### 📊 Dashboard & Analytics
+
+- Real-time statistics on repositories, commits, and PRs
+- Interactive contribution graphs (GitHub-style activity calendar)
+- Monthly activity breakdowns and trend analysis
+
+### 🔐 Authentication & User Management
+
+- Secure GitHub OAuth via Better Auth
+- Profile management and customization
+- Session handling with automatic token refresh
+
+### ⚙️ Background Processing
+
+- Inngest-powered async job processing
+- Repository indexing workflows
+- Reliable webhook event handling
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
 
-- **Framework**: Next.js 16
-- **Library**: React 19
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS 4
-- **UI Components**: shadcn/ui, Radix UI
-- **Visualization**: Recharts (Charts), Lucide React (Icons)
-- **Forms**: React Hook Form + Zod validation
+| Technology         | Purpose                         |
+| ------------------ | ------------------------------- |
+| **Next.js 16**     | React framework with App Router |
+| **React 19**       | UI library with latest features |
+| **TypeScript**     | Type-safe development           |
+| **Tailwind CSS 4** | Utility-first styling           |
+| **shadcn/ui**      | Pre-built accessible components |
+| **Radix UI**       | Headless UI primitives          |
+| **TanStack Query** | Server state management         |
+| **Recharts**       | Data visualization              |
+| **Framer Motion**  | Animations                      |
 
 ### Backend
 
-- **Runtime**: Next.js API Routes, Server Actions
-- **Database**: PostgreSQL with Prisma ORM
-- **Vector Database**: Pinecone (for RAG implementation)
-- **Authentication**: Better Auth
-- **Payments**: Polar (Subscription management)
-- **Background Jobs**: Inngest (Async processing)
+| Technology             | Purpose                    |
+| ---------------------- | -------------------------- |
+| **Next.js API Routes** | RESTful API endpoints      |
+| **Server Actions**     | Type-safe server mutations |
+| **Prisma ORM**         | Database access layer      |
+| **PostgreSQL**         | Primary database           |
+| **Pinecone**           | Vector database for RAG    |
+| **Inngest**            | Background job processing  |
+| **Better Auth**        | Authentication system      |
 
 ### AI & Machine Learning
 
-- **Model**: Google Gemini AI (Gemini 2.5 Flash)
-- **Embeddings**: text-embedding-004
-- **Framework**: LangChain/Custom RAG Implementation
+| Technology             | Purpose                  |
+| ---------------------- | ------------------------ |
+| **Google Gemini AI**   | LLM for code analysis    |
+| **text-embedding-004** | Embedding generation     |
+| **Vercel AI SDK**      | AI integration framework |
+| **Pinecone**           | Vector similarity search |
 
-### Integrations & Tools
+### Integrations
 
-- **Data Fetching**: TanStack Query (React Query)
-- **GitHub**: Octokit API for deep integration
-- **Testing**: Jest
-
----
-
-## Key Features
-
-### 1. AI-Powered Code Reviews
-
-- **Automated Generation**: Automatically generates detailed code reviews for Pull Requests.
-- **RAG Context**: Uses Pinecone vector database to understand the entire codebase context, ensuring reviews are relevant and aware of project patterns.
-- **Rich Feedback**: Reviews include walkthroughs, sequence diagrams, detailed summaries, strengths, issue identification, and constructive suggestions.
-- **Creative Touch**: Even includes poems about your code!
-
-### 2. Deep GitHub Integration
-
-- **Multi-Repo Management**: Connect and manage multiple repositories seamlessly.
-- **Webhook Automation**: Automatically handles webhook events for PRs.
-- **Real-Time Updates**: Triggers review generation instantly when a PR is opened or updated.
-- **Direct Interaction**: Posts reviews and comments directly to GitHub PRs.
-
-### 3. Advanced RAG Implementation
-
-- **Automatic Indexing**: Generates and stores vector embeddings for your codebase.
-- **Semantic Search**: Enables semantic search capability across your entire project.
-- **Context Retrieval**: Retrieves relevant code snippets to provide the AI with the necessary context for accurate reviews.
-
-### 4. Dashboard & Analytics
-
-- **Activity Hub**: View real-time statistics on repositories, commits, PRs, and reviews.
-- **Visualization**: Interactive contribution graphs and monthly activity breakdowns.
-- **Insights**: Track commit frequency, PR volume, and review activity over time.
-
-### 5. Comprehensive Review Management
-
-- **History Tracking**: Keep a complete history of all generated reviews.
-- **Status Monitoring**: Track reviews by status (completed, pending, failed).
-- **Access Control**: View full review content or jump directly to the PR on GitHub.
-
-### 6. Repository Management
-
-- **Centralized Hub**: Browse, search, and filter all your connected GitHub repositories.
-- **Easy Connection**: Simple connect/disconnect workflow for repositories.
-- **Infinite Scrolling**: Smooth navigation through large lists of repositories.
-
-### 7. Subscription & Billing
-
-- **Tiered Access**:
-  - **Free Tier**: Manage up to 5 repositories with 5 reviews per repo.
-  - **Pro Tier**: Unlimited repositories and reviews.
-- **Polar Integration**: Seamless subscription management and limits enforcement.
-
-### 8. User & Session Management
-
-- **Better Auth**: Secure and modern authentication system.
-- **Profile Management**: Customizable user profiles and settings.
-- **Usage Tracking**: Monitor your specific usage and limits.
-
-### 9. Background Processing (Inngest)
-
-- **Reliable Jobs**: Handles complex tasks like checking out repositories, generating embeddings, and processing reviews in the background.
-- **Concurrency Control**: Ensures system stability under load.
-
-### 10. Modern UI/UX
-
-- **Responsive Design**: Mobile-first approach.
-- **Dark Mode**: Fully supported dark mode.
-- **Interaction**: Loading states, skeletons, and toast notifications for a smooth user experience.
+| Technology          | Purpose                  |
+| ------------------- | ------------------------ |
+| **Octokit**         | GitHub API client        |
+| **GitHub Webhooks** | Real-time event handling |
+| **Zod**             | Schema validation        |
+| **React Hook Form** | Form handling            |
 
 ---
 
-## Getting Started
+## 🏗️ Architecture
+
+### System Overview
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                              USER BROWSER                                │
+│                                                                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌─────────────┐ │
+│  │   Landing    │  │  Dashboard   │  │ Repository   │  │  Settings   │ │
+│  │    Page      │  │    Page      │  │    Page      │  │    Page     │ │
+│  └──────────────┘  └──────────────┘  └──────────────┘  └─────────────┘ │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           NEXT.JS APP ROUTER                             │
+│                                                                         │
+│  ┌────────────────────────────────────────────────────────────────────┐ │
+│  │                        API ROUTES                                   │ │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐               │ │
+│  │  │ /api/auth   │  │/api/webhooks│  │ /api/inngest│               │ │
+│  │  │ (Better Auth│  │  (GitHub)   │  │  (Jobs)     │               │ │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘               │ │
+│  └────────────────────────────────────────────────────────────────────┘ │
+│                                                                         │
+│  ┌────────────────────────────────────────────────────────────────────┐ │
+│  │                      SERVER ACTIONS                                │ │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐               │ │
+│  │  │ Repository  │  │  Settings   │  │  Dashboard  │               │ │
+│  │  │  Actions    │  │  Actions    │  │  Actions    │               │ │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘               │ │
+│  └────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    ┌───────────────┼───────────────┐
+                    ▼               ▼               ▼
+           ┌──────────────┐ ┌─────────────┐ ┌─────────────────┐
+           │  PostgreSQL  │ │  Pinecone   │ │    Inngest      │
+           │  (Prisma)    │ │  (Vectors)  │ │ (Background Jobs│
+           └──────────────┘ └─────────────┘ └─────────────────┘
+                                                    │
+                                                    ▼
+                                          ┌─────────────────┐
+                                          │  Google Gemini  │
+                                          │   (AI/LLM)      │
+                                          └─────────────────┘
+```
+
+### Data Flow: Repository Connection & Indexing
+
+```
+┌──────────┐    ┌────────────┐    ┌─────────────┐    ┌──────────────┐
+│  User    │───▶│ Connect    │───▶│  Create     │───▶│   Trigger    │
+│  Clicks  │    │ Repository │    │  Webhook    │    │   Inngest    │
+│ "Connect"│    │  Action    │    │  on GitHub  │    │    Event     │
+└──────────┘    └────────────┘    └─────────────┘    └──────────────┘
+                                                            │
+                                                            ▼
+┌──────────┐    ┌────────────┐    ┌─────────────┐    ┌──────────────┐
+│ Stored   │◀──│  Upsert    │◀──│  Generate   │◀──│  Fetch All   │
+│   in     │    │ to Pinecone│    │ Embeddings  │    │  Repo Files  │
+│ Pinecone │    │  (Batched) │    │ (Google AI) │    │  (Octokit)   │
+└──────────┘    └────────────┘    └─────────────┘    └──────────────┘
+```
+
+---
+
+## 📁 Project Structure
+
+```
+inspectra/
+├── app/                          # Next.js App Router
+│   ├── (auth)/                   # Authentication routes
+│   │   └── login/                # Login page
+│   ├── (dashboard)/              # Protected dashboard routes
+│   │   ├── dashboard/            # Main dashboard
+│   │   ├── repository/           # Repository management
+│   │   └── settings/             # User settings
+│   ├── api/                      # API routes
+│   │   ├── auth/                 # Better Auth endpoints
+│   │   ├── inngest/              # Inngest webhook handler
+│   │   └── webhooks/github/      # GitHub webhook receiver
+│   ├── globals.css               # Global styles
+│   ├── layout.tsx                # Root layout
+│   └── page.tsx                  # Landing page
+│
+├── components/                   # React components
+│   ├── ui/                       # shadcn/ui components
+│   └── landing/                  # Landing page components
+│
+├── inngest/                      # Background job definitions
+│   ├── client.ts                 # Inngest client
+│   └── functions/                # Job functions
+│       └── index.ts              # Repository indexing jobs
+│
+├── lib/                          # Shared utilities
+│   ├── auth.ts                   # Better Auth configuration
+│   ├── db.ts                     # Prisma client
+│   ├── pinecone.ts               # Pinecone client
+│   └── generated/prisma/         # Generated Prisma client
+│
+├── module/                       # Feature modules
+│   ├── auth/                     # Auth components & hooks
+│   ├── dashboard/                # Dashboard components
+│   ├── github/                   # GitHub integration
+│   │   └── lib/
+│   │       ├── github.ts         # Octokit utilities
+│   │       └── ai/lib/rag.ts     # RAG implementation
+│   ├── repository/               # Repository management
+│   └── settings/                 # Settings management
+│
+├── prisma/                       # Database schema
+│   └── schema.prisma             # Prisma schema definition
+│
+├── providers/                    # React context providers
+├── public/                       # Static assets
+└── docs/                         # Documentation
+```
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (Latest LTS recommended)
-- PostgreSQL Database
-- Redis (Optional, for advanced caching/queues if needed)
-- GitHub Account & App Credentials
-- Google AI (Gemini) API Key
-- Pinecone API Key
-- Polar API Key
+- **Node.js** (v18 or later, LTS recommended)
+- **Bun** (recommended) or npm/pnpm
+- **PostgreSQL** database
+- **GitHub Account** with OAuth App credentials
+- **Google AI (Gemini)** API Key
+- **Pinecone** API Key and Index
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```bash
+# Database
+DATABASE_URL="postgresql://user:password@host:5432/database?sslmode=require"
+
+# Better Auth
+BETTER_AUTH_SECRET="your-secret-key"
+BETTER_AUTH_URL="http://localhost:3000"
+
+# GitHub OAuth
+GITHUB_CLIENT_ID="your-github-client-id"
+GITHUB_CLIENT_SECRET="your-github-client-secret"
+
+# AI & Vector Database
+GOOGLE_API_KEY="your-google-ai-api-key"
+PINECONE_DB_API_KEY="your-pinecone-api-key"
+
+# Application
+NEXT_PUBLIC_APP_BASE_URL="http://localhost:3000"
+```
 
 ### Installation
 
@@ -129,37 +289,86 @@
 2. **Install dependencies**
 
    ```bash
-   npm install
-   # or
-   pnpm install
-   # or
    bun install
+   # or
+   npm install
    ```
 
-3. **Set up Environment Variables**
-   Create a `.env` file in the root directory and add the necessary API keys and database URLs.
-
-4. **Initialize Database**
+3. **Set up the database**
 
    ```bash
    npx prisma generate
    npx prisma db push
    ```
 
-5. **Run the Development Server**
+4. **Start the development server**
 
    ```bash
-   npm run dev
+   bun run dev
    ```
 
-   Open [http://localhost:3000](http://localhost:3000) to view the application.
+5. **Start Inngest Dev Server** (in a separate terminal)
 
-## Running Tests
+   ```bash
+   npx inngest-cli@latest dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+---
+
+## 📚 Documentation
+
+Detailed documentation is available in the [`/docs`](/docs) directory:
+
+- [**Architecture Overview**](/docs/ARCHITECTURE.md) - System design and data flow
+- [**API Reference**](/docs/API.md) - API endpoints and server actions
+- [**GitHub Integration**](/docs/GITHUB_INTEGRATION.md) - Webhooks and OAuth setup
+- [**RAG Implementation**](/docs/RAG.md) - Vector embeddings and retrieval
+- [**Inngest Jobs**](/docs/INNGEST.md) - Background job processing
+- [**Database Schema**](/docs/DATABASE.md) - Prisma models and relationships
+
+---
+
+## 🧪 Development
+
+### Available Scripts
+
+| Script             | Description              |
+| ------------------ | ------------------------ |
+| `bun run dev`      | Start development server |
+| `bun run build`    | Build for production     |
+| `bun run start`    | Start production server  |
+| `bun run lint`     | Run ESLint               |
+| `bun run test`     | Run tests                |
+| `bun run prettier` | Format code              |
+
+### Running Tests
 
 ```bash
-npm run test
+bun run test
 ```
 
-## License
+---
 
-[MIT](LICENSE)
+## 🤝 Contributing
+
+Contributions are welcome! Please read our contributing guidelines before submitting a PR.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+  <p>Built with ❤️ by <a href="https://github.com/krishna9358">Krishna Mohan</a></p>
+</div>
