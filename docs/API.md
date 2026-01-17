@@ -242,6 +242,105 @@ type DisconnectAllResult = {
 
 ---
 
+## AI Module
+
+Located in `/module/ai/actions/index.ts`
+
+#### `reviewPullRequest(owner: string, repo: string, prNumber: number)`
+
+Initiates an AI review for a Pull Request. Called from the GitHub webhook handler.
+
+**Parameters:**
+| Name | Type | Description |
+|------|------|-------------|
+| `owner` | string | Repository owner |
+| `repo` | string | Repository name |
+| `prNumber` | number | Pull request number |
+
+**Side Effects:**
+
+1. Fetches repository and user data from database
+2. Validates GitHub access token
+3. Triggers `pr.review.requested` Inngest event
+4. On failure, saves error to database as a failed review
+
+**Returns:**
+
+```typescript
+type ReviewResult = {
+  success: boolean;
+  message: string; // "Review Queued" or error message
+};
+```
+
+**Example:**
+
+```typescript
+const result = await reviewPullRequest("krishna9358", "inspectra", 42);
+// { success: true, message: "Review Queued" }
+```
+
+---
+
+### OpenRouter Provider
+
+Located in `/module/ai/lib/openrouter.ts`
+
+Provides a custom OpenAI-compatible provider for OpenRouter:
+
+```typescript
+import { createOpenAI } from "@ai-sdk/openai";
+
+const openrouterProvider = createOpenAI({
+  apiKey: process.env.OPENROUTER_API_KEY!,
+  baseURL: "https://openrouter.ai/api/v1",
+  headers: {
+    "HTTP-Referer":
+      process.env.NEXT_PUBLIC_APP_BASE_URL || "http://localhost:3000",
+    "X-Title": "inspectra",
+  },
+});
+
+export const openrouter = (model: string) => openrouterProvider(model);
+```
+
+**Usage:**
+
+```typescript
+import { openrouter } from "@/module/ai/lib/openrouter";
+import { generateText } from "ai";
+
+const { text } = await generateText({
+  model: openrouter("qwen/qwen3-coder:free"),
+  prompt: "...",
+});
+```
+
+---
+
+### Prompt Generator
+
+Located in `/module/ai/prompt.ts`
+
+#### `generateReviewPrompt(params: PromptParams): string`
+
+Generates a comprehensive prompt for AI code review.
+
+**Parameters:**
+
+```typescript
+interface PromptParams {
+  title: string;
+  description: string | null;
+  context: string[];
+  diff: string;
+}
+```
+
+**Returns:** A formatted prompt string for the AI model.
+
+---
+
 ## GitHub Utility Functions
 
 Located in `/module/github/lib/github.ts`
@@ -308,25 +407,73 @@ type FileContent[] = {
 
 ---
 
+#### `getPullRequestDiff(token: string, owner: string, repo: string, prNumber: number)`
+
+Fetches the diff, title, and description for a Pull Request.
+
+**Parameters:**
+| Name | Type | Description |
+|------|------|-------------|
+| `token` | string | GitHub access token |
+| `owner` | string | Repository owner |
+| `repo` | string | Repository name |
+| `prNumber` | number | Pull request number |
+
+**Returns:**
+
+```typescript
+type PRDiffResponse = {
+  title: string; // PR title
+  diff: string; // Full diff content
+  description: string; // PR body/description
+};
+```
+
+---
+
+#### `postReviewComment(token: string, owner: string, repo: string, prNumber: number, review: string)`
+
+Posts an AI-generated review as a comment on a Pull Request.
+
+**Parameters:**
+| Name | Type | Description |
+|------|------|-------------|
+| `token` | string | GitHub access token |
+| `owner` | string | Repository owner |
+| `repo` | string | Repository name |
+| `prNumber` | number | Pull request number |
+| `review` | string | Review content to post |
+
+---
+
 ## RAG Functions
 
-Located in `/module/github/lib/ai/lib/rag.ts`
+Located in `/module/ai/lib/rag.ts`
 
 #### `generateEmbedding(text: string): Promise<number[]>`
 
-Generates a vector embedding for text.
+Generates a vector embedding for text using Google's text-embedding-004 model.
 
 ---
 
 #### `indexCodebase(repoId: string, files: { path: string; content: string }[])`
 
-Indexes repository files to Pinecone.
+Indexes repository files to Pinecone in batches.
 
 ---
 
 #### `retrieveContext(query: string, repoId: string, topK?: number): Promise<string[]>`
 
-Retrieves relevant code context for a query.
+Retrieves relevant code context for a query using vector similarity search.
+
+**Parameters:**
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `query` | string | - | Search query |
+| `repoId` | string | - | Repository identifier (owner/repo) |
+| `topK` | number | 5 | Number of results to return |
+
+**Returns:** Array of relevant code snippets from the indexed codebase.
 
 ---
 
