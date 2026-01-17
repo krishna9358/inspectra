@@ -569,7 +569,7 @@ function SidebarMenuAction({
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
-        "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0",
+          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0",
         className,
       )}
       {...props}
@@ -612,7 +612,7 @@ function SidebarMenuSkeleton({
   const width = React.useMemo(() => {
     let hash = 0;
     for (let i = 0; i < id.length; i++) {
-      hash = ((hash << 5) - hash) + id.charCodeAt(i);
+      hash = (hash << 5) - hash + id.charCodeAt(i);
       hash = hash & hash;
     }
     return `${Math.abs(hash % 40) + 50}%`;

@@ -24,13 +24,17 @@ import Link from "next/link";
 import LogoutButton from "@/module/auth/components/logout-button";
 
 // Helper for hydration-safe mounting check
-const emptySubscribe = () => () => { };
+const emptySubscribe = () => () => {};
 const getSnapshot = () => true;
 const getServerSnapshot = () => false;
 
 export const AppSidebar = () => {
   const { theme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(emptySubscribe, getSnapshot, getServerSnapshot);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
   const pathname = usePathname();
   const { data: session } = useSession();
 

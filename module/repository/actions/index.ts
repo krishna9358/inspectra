@@ -70,19 +70,18 @@ export const connectRepository = async (
 
   // TODO: Trigger Repository indexing for rag (fire and forget)
 
-try {
-  await inngest.send({
-    name: "repository.connected",
-    data: {
-      owner,
-      repo,
-      userId: session.user.id,
-    }
-  })
-} catch (error) {
-  console.error("Failed to trigger repository indexing", error)
-  
-}
+  try {
+    await inngest.send({
+      name: "repository.connected",
+      data: {
+        owner,
+        repo,
+        userId: session.user.id,
+      },
+    });
+  } catch (error) {
+    console.error("Failed to trigger repository indexing", error);
+  }
 
   return webhook;
 };

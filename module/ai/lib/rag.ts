@@ -27,7 +27,7 @@ export async function indexCodebase(
   for (const file of files) {
     const content = `File: ${file.path}\n\n${file.content}`;
     const truncatedContent = content.slice(0, 8192);
-    try {   
+    try {
       const embedding = await generateEmbedding(truncatedContent);
       vectors.push({
         id: `${repoId}-${file.path.replace(/\//g, "_")}`,

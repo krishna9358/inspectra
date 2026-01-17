@@ -8,6 +8,6 @@ export const { GET, POST, PUT } = serve({
   functions: [
     /* your functions will be passed here later! */
     helloWorld,
-    indexRepo
+    indexRepo,
   ],
 });
