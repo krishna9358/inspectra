@@ -8,7 +8,9 @@ import { headers } from "next/headers";
 
 export async function getUserProfile() {
   try {
-    const session = await auth.api.getSession();
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
     if (!session) {
       throw new Error("Unauthorized");
     }
@@ -36,7 +38,9 @@ export async function updateUserProfile(data: {
   email?: string;
 }) {
   try {
-    const session = await auth.api.getSession();
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
     if (!session) {
       throw new Error("Unauthorized");
     }

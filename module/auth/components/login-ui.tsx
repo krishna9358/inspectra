@@ -8,7 +8,7 @@ const LoginUI = () => {
       <div className="bg-muted relative hidden lg:block">
         <div className="absolute inset-0 flex items-center justify-center h-full w-full bg-gradient-to-br from-primary/10 via-muted to-background">
           <blockquote className="text-2xl md:text-3xl font-light italic text-center text-primary-foreground/90 max-w-xl mx-auto px-8 drop-shadow-lg">
-            "Empower your potential—unlock tomorrow with AI today."
+            &ldquo;Empower your potential—unlock tomorrow with AI today.&rdquo;
           </blockquote>
         </div>
       </div>

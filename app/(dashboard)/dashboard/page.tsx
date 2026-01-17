@@ -32,7 +32,7 @@ import {
 import ContributionGraph from "@/module/dashboard/component/contribution-graph";
 import { Spinner } from "@/components/ui/spinner";
 
-const page = () => {
+const Page = () => {
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: [queryKey.DASHBOARD_STATS],
     queryFn: async () => await getDashboardStats(),
@@ -182,4 +182,5 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
+

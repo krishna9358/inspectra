@@ -2,7 +2,6 @@ import { Octokit } from "octokit";
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { headers } from "next/headers";
-import page from "@/app/(dashboard)/dashboard/page";
 
 // =====================
 // Getting GITHUB TOKEN
@@ -160,7 +159,7 @@ export const deleteWebhook = async (owner: string, repo: string) => {
       (hook) => hook.config.url === webhookUrl,
     );
     if (existingHook) {
-      const { data } = await octokit.rest.repos.deleteWebhook({
+      await octokit.rest.repos.deleteWebhook({
         owner,
         repo,
         hook_id: existingHook.id,

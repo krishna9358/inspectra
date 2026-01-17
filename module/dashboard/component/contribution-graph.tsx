@@ -8,11 +8,7 @@ import { ActivityCalendar } from "react-activity-calendar";
 
 export default function ContributionGraph() {
   const { theme } = useTheme();
-  const {
-    data: contributionData,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: contributionData, isLoading } = useQuery({
     queryKey: [queryKey.CONTRIBUTION_GRAPH],
     queryFn: async () => await getContributionStats(),
     staleTime: 1000 * 60 * 5, // 5 mins

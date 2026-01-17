@@ -1,8 +1,8 @@
-"use-client";
+"use client";
 
 import { queryKey } from "@/config/queryKey";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getUserProfile, updateUserProfile } from "../actions";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -17,24 +17,17 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export function ProfileForm() {
+// Internal form component that uses initial values from props
+function ProfileFormContent({
+  initialName,
+  initialEmail,
+}: {
+  initialName: string;
+  initialEmail: string;
+}) {
   const queryClient = useQueryClient();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-
-  const { data: profile, isLoading } = useQuery({
-    queryKey: [queryKey.USER_PROFILE],
-    queryFn: async () => await getUserProfile(),
-    staleTime: 5 * 60 * 1000,
-    refetchOnWindowFocus: false,
-  });
-
-  useEffect(() => {
-    if (profile) {
-      setName(profile.name || "");
-      setEmail(profile.email || "");
-    }
-  }, [profile]);
+  const [name, setName] = useState(initialName);
+  const [email, setEmail] = useState(initialEmail);
 
   const updateMutation = useMutation({
     mutationFn: async (data: { name?: string; email?: string }) => {
@@ -48,7 +41,7 @@ export function ProfileForm() {
         toast.success("Profile updated successfully");
       }
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("Failed to update profile");
     },
   });
@@ -57,10 +50,6 @@ export function ProfileForm() {
     e.preventDefault();
     updateMutation.mutate({ name, email });
   };
-
-  if (isLoading) {
-    return <Loader2 className="h-5 w-5 animate-spin" />;
-  }
 
   return (
     <Card>
@@ -106,3 +95,24 @@ export function ProfileForm() {
     </Card>
   );
 }
+
+export function ProfileForm() {
+  const { data: profile, isLoading } = useQuery({
+    queryKey: [queryKey.USER_PROFILE],
+    queryFn: async () => await getUserProfile(),
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) {
+    return <Loader2 className="h-5 w-5 animate-spin" />;
+  }
+
+  return (
+    <ProfileFormContent
+      initialName={profile?.name || ""}
+      initialEmail={profile?.email || ""}
+    />
+  );
+}
+

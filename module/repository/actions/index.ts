@@ -26,9 +26,9 @@ export const fetchRepositories = async (
       userId: session.user.id,
     },
   });
-  const connectedRepoIds = new Set(dbRepos.map((repo: any) => repo.githubId));
+  const connectedRepoIds = new Set(dbRepos.map((repo) => repo.githubId));
 
-  return githubRepo.map((repo: any) => ({
+  return githubRepo.map((repo) => ({
     ...repo,
     isConnected: connectedRepoIds.has(BigInt(repo.id)),
   }));

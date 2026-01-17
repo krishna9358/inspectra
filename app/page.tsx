@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion, Variants } from "framer-motion";
 import {
@@ -48,14 +49,14 @@ const Header = () => (
     transition={{ duration: 0.5 }}
     className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-md"
   >
-    <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+    <div className="container  mx-auto px-4 h-16 flex items-center justify-between">
       <div className="flex items-center gap-2">
         <div className="size-8 bg-primary rounded-full flex items-center justify-center">
           <span className="font-bold text-primary-foreground">I</span>
         </div>
         <span className="text-xl font-bold tracking-tight">Inspectra</span>
       </div>
-
+{/* 
       <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground/80">
         {['Features', 'Enterprise', 'Customers', 'Pricing', 'Blog'].map((item) => (
           <Link key={item} href={`#${item.toLowerCase()}`} className="hover:text-foreground transition-colors relative group">
@@ -63,7 +64,7 @@ const Header = () => (
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
           </Link>
         ))}
-      </nav>
+      </nav> */}
 
       <div className="flex items-center gap-4">
         <Link href="/login" className="text-sm font-medium hover:text-primary transition-colors hidden sm:block">
@@ -96,7 +97,7 @@ const Hero = () => (
 
       <motion.p variants={fadeIn} className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-12 font-mono">
         Reviews for AI-powered teams who <br />
-        move fast (but don't break things)
+        move fast (but don&apos;t break things)
       </motion.p>
 
       <motion.div variants={fadeIn} className="flex flex-col items-center gap-6">
@@ -166,7 +167,7 @@ const Stats = () => (
   </section>
 );
 
-const FeatureCard = ({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) => (
+const FeatureCard = ({ children }: { children: React.ReactNode }) => (
   <motion.div
     variants={fadeIn}
     whileHover="hover"
@@ -220,10 +221,11 @@ const FeatureGrid = () => (
           </motion.div>
         </div>
         <div className="space-y-4 relative z-10">
-          <h3 className="text-primary font-mono text-sm">// 1-click & AI fixes</h3>
+          {/* 1-click & AI fixes */}
+          <h3 className="text-primary font-mono text-sm">1-click &amp; AI fixes</h3>
           <h4 className="text-2xl font-heading font-bold">Catch fast. Fix fast.</h4>
           <p className="text-muted-foreground text-sm font-mono leading-relaxed">
-            1-click commits for easy fixes and a "Fix with AI" button for harder ones.
+            1-click commits for easy fixes and a &quot;Fix with AI&quot; button for harder ones.
           </p>
         </div>
       </FeatureCard>
@@ -245,7 +247,8 @@ const FeatureGrid = () => (
           </motion.div>
         </div>
         <div className="space-y-4 relative z-10">
-          <h3 className="text-primary font-mono text-sm">// Summaries & visual diagrams</h3>
+          {/* Summaries & visual diagrams */}
+          <h3 className="text-primary font-mono text-sm">Summaries &amp; visual diagrams</h3>
           <h4 className="text-2xl font-heading font-bold">TL;DR for your diff.</h4>
           <p className="text-muted-foreground text-sm font-mono leading-relaxed">
             Quick context with a summary of changes, a walkthrough & an architectural diagram.
@@ -271,7 +274,8 @@ const FeatureGrid = () => (
           </motion.div>
         </div>
         <div className="space-y-4 relative z-10">
-          <h3 className="text-primary font-mono text-sm">// Agentic reviews</h3>
+          {/* Agentic reviews */}
+          <h3 className="text-primary font-mono text-sm">Agentic reviews</h3>
           <h4 className="text-2xl font-heading font-bold">Find the bugs. Skip the noise.</h4>
           <p className="text-muted-foreground text-sm font-mono leading-relaxed">
             We find bugs humans miss - & flag the time consuming and tedious. Without the noise.
@@ -287,8 +291,8 @@ const FeatureGrid = () => (
       >
         <div className="flex-1 flex items-center py-6">
           <motion.div variants={cardHover} className="flex items-center gap-3">
-            <div className="size-10 rounded-full bg-secondary overflow-hidden">
-              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=jenn" alt="avatar" className="size-full object-cover" />
+            <div className="size-10 rounded-full bg-secondary overflow-hidden relative">
+              <Image src="https://api.dicebear.com/7.x/avataaars/svg?seed=jenn" alt="avatar" fill className="object-cover" unoptimized />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -301,7 +305,8 @@ const FeatureGrid = () => (
           </motion.div>
         </div>
         <div className="space-y-4">
-          <h3 className="text-primary font-mono text-sm">// Chat</h3>
+          {/* Chat */}
+          <h3 className="text-primary font-mono text-sm">Chat</h3>
           <h4 className="text-2xl font-heading font-bold">Chat with the bot directly.</h4>
           <p className="text-muted-foreground text-sm font-mono leading-relaxed">
             Give feedback on reviews to create Learnings. Or create issues, trigger docstrings & more.
@@ -321,7 +326,8 @@ const FeatureGrid = () => (
           </motion.div>
         </div>
         <div className="space-y-4">
-          <h3 className="text-primary font-mono text-sm">// Your code, your way</h3>
+          {/* Your code, your way */}
+          <h3 className="text-primary font-mono text-sm">Your code, your way</h3>
           <h4 className="text-2xl font-heading font-bold">Most customizable tool.</h4>
           <p className="text-muted-foreground text-sm font-mono leading-relaxed">
             Customize everything from your coding guidelines to your workflow in a yaml file.
@@ -349,7 +355,8 @@ const FeatureGrid = () => (
           </motion.div>
         </div>
         <div className="space-y-4">
-          <h3 className="text-primary font-mono text-sm">// Automated reports</h3>
+          {/* Automated reports */}
+          <h3 className="text-primary font-mono text-sm">Automated reports</h3>
           <h4 className="text-2xl font-heading font-bold">The reports you need.</h4>
           <p className="text-muted-foreground text-sm font-mono leading-relaxed">
             Automate the creation of your daily standup reports, sprint reviews, and more.
