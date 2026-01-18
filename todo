@@ -1,15 +1,9 @@
-1. Github redirect uri - change it after deployment
-2. CHnage the database from developement to production and migrate the data.
 3. Containerize the whole application. create dockerfile, deploy ghcr
 4. Use kubernetes and deploy
 5. Add monitoring and logging
-6. May be add redis and other microservices architecture
 7. add rate limiting and node balancing, decoupling, recaptcha
-8. For ai use langchain and langgraph thing.
 9. update readme (hosted one add), just file . 
 10.  add subscription feature
-
-
 
 // Technical Issues:
 1. Collecting and aggregating the monthly activity like prs, contributions and reviews. 
