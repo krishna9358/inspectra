@@ -137,12 +137,12 @@ export default function SignupPage() {
             </Link>{" "}
             and{" "}
             <Link href="/privacy" className="text-primary hover:underline">
-              Privacy Policy
+              Privacy Policy applicable to Inspectra.
             </Link>{" "}
             applicable to Inspectra.
           </p>
         </div>
-      </div>
+      </div> 
     </div>
   );
 }
