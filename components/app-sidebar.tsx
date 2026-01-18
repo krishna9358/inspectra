@@ -59,11 +59,6 @@ export const AppSidebar = () => {
       href: "/reviews",
     },
     {
-      icon: BookOpen,
-      label: "Subscription",
-      href: "/subscription",
-    },
-    {
       icon: Settings,
       label: "Settings",
       href: "/settings",
