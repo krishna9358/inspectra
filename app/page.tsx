@@ -8,6 +8,7 @@ import { motion, Variants } from "framer-motion";
 import { ArrowRight, Github, Gitlab, FileCode2 } from "lucide-react";
 import GridSmallBackgroundDemo from "@/components/ui/grid-small-background-demo";
 import { PointerHighlight } from "@/components/pointer-highlight";
+import { Logo } from "@/components/logo";
 
 // Animation Variants
 const fadeIn: Variants = {
@@ -44,13 +45,8 @@ const Header = () => (
     transition={{ duration: 0.5 }}
     className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-md"
   >
-    <div className="container  mx-auto px-4 h-16 flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <div className="size-8 bg-primary rounded-full flex items-center justify-center">
-          <span className="font-bold text-primary-foreground">I</span>
-        </div>
-        <span className="text-xl font-bold tracking-tight">Inspectra</span>
-      </div>
+    <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <Logo showText={true} size="md" />
       {/* 
       <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground/80">
         {['Features', 'Enterprise', 'Customers', 'Pricing', 'Blog'].map((item) => (
@@ -61,18 +57,19 @@ const Header = () => (
         ))}
       </nav> */}
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 sm:gap-4">
         <Link
           href="/login"
-          className="text-sm font-medium hover:text-primary transition-colors hidden sm:block"
+          className="text-sm font-medium hover:text-primary transition-colors"
         >
           Log In
         </Link>
         <Button
+          asChild
           variant="outline"
-          className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors group"
+          className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors group text-sm sm:text-base"
         >
-          Get a free trial
+          <Link href="/login">Install on GitHub</Link>
         </Button>
       </div>
     </div>
@@ -80,7 +77,7 @@ const Header = () => (
 );
 
 const Hero = () => (
-  <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden z-10 w-full">
+  <section className="relative pt-32 pb-20 lg:pt-32 lg:pb-32 overflow-hidden z-10 w-full">
     <motion.div
       variants={staggerContainer}
       initial="hidden"
@@ -89,52 +86,87 @@ const Hero = () => (
     >
       <motion.h1
         variants={fadeIn}
-        className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight leading-[1.05] mb-8"
+        className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight leading-[1.05] mb-8 relative"
       >
-        Cut code review time <br />& bugs in{" "}
-        <span className="text-primary">
-          {" "}
-          <PointerHighlight
-            rectangleClassName="rounded-md bg-orange-500/12 ring-1 ring-inset ring-orange-400/20 backdrop-blur-[1px]"
-            pointerClassName="text-orange-400 drop-shadow-[0_0_18px_rgba(255,165,0,0.35)]"
-            containerClassName="inline-block relative max-w-full"
-          >
-            half Instantly.
-          </PointerHighlight>
+        <span className="relative z-10">
+          Ship cleaner PRs.{" "}
+          <span className="text-primary relative inline-block group">
+            <PointerHighlight
+              rectangleClassName="rounded-md bg-orange-500/12 ring-1 ring-inset ring-orange-400/20  transition-all duration-300 group-hover:bg-orange-500/15"
+              pointerClassName="text-orange-400 drop-shadow-[0_0_18px_rgba(255,165,0,0.35)]"
+              containerClassName="inline-block relative max-w-full"
+            >
+              2× faster.
+            </PointerHighlight>
+            {/* Subtle shimmer effect */}
+            <span className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+          </span>{" "}
+          Zero drama.
         </span>
+        {/* Soft radial glow behind headline */}
+        <div 
+          className="absolute inset-0 -z-0 blur-3xl opacity-30"
+          style={{
+            background: 'radial-gradient(circle at center, rgba(255, 165, 0, 0.1) 0%, transparent 70%)'
+          }}
+        />
       </motion.h1>
 
       <motion.p
         variants={fadeIn}
-        className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-12 font-mono"
+        className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-6 font-mono"
       >
-        Reviews for AI-powered teams who <br />
-        move fast (but don&apos;t break things)
+        AI code reviews on every GitHub PR — catches bugs, security issues, and bad
+        patterns before merge.
+      </motion.p>
+      
+      <motion.p
+        variants={fadeIn}
+        className="text-sm md:text-base text-muted-foreground/70 max-w-xl mx-auto mb-12 font-mono"
+      >
+        Runs on your PRs · No code changes · 2-click install
       </motion.p>
 
       <motion.div
         variants={fadeIn}
-        className="flex flex-col items-center gap-6"
+        className="flex flex-col items-center gap-4"
       >
         <Button
           size="lg"
+          asChild
           className="h-14 px-8 text-lg bg-white text-black hover:bg-white/90 group relative overflow-hidden"
         >
-          <span className="relative z-10 flex items-center">
-            Try it for free
-            <div className="ml-2 size-6 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-              <ArrowRight className="size-4 text-white" />
-            </div>
-          </span>
+          <Link href="/login">
+            <span className="relative z-10 flex items-center">
+              Try it for free
+              <div className="ml-2 size-6 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                <ArrowRight className="size-4 text-white" />
+              </div>
+            </span>
+          </Link>
         </Button>
 
-        <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono">
-          <span>2-click install</span>
+        <Link
+          href="#"
+          className="text-sm text-muted-foreground hover:text-primary transition-colors font-mono underline underline-offset-4"
+        >
+          See a sample review
+        </Link>
+
+        <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono pt-2">
           <Github className="size-5 text-white" />
           <Gitlab className="size-5 text-orange-500" />
           <span className="text-white/20">|</span>
           <FileCode2 className="size-5" />
         </div>
+
+        {/* Social Proof */}
+        <motion.p
+          variants={fadeIn}
+          className="text-xs text-muted-foreground/60 font-mono mt-2"
+        >
+          Reviewed 10k+ PRs and counting
+        </motion.p>
       </motion.div>
     </motion.div>
   </section>
@@ -899,12 +931,7 @@ const BigFooter = () => (
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-20">
         {/* Brand */}
         <div className="col-span-2 lg:col-span-1">
-          <div className="flex items-center gap-2 mb-6">
-            <div className="size-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="font-bold text-primary-foreground">I</span>
-            </div>
-            <span className="text-xl font-bold tracking-tight">Inspectra</span>
-          </div>
+          <Logo showText={true} size="md" className="mb-6" />
         </div>
 
         {/* Products */}

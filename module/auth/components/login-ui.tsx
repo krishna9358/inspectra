@@ -1,6 +1,6 @@
 "use client";
-import { GalleryVerticalEnd } from "lucide-react";
 import { LoginForm } from "./login-form";
+import { Logo } from "@/components/logo";
 
 const LoginUI = () => {
   return (
@@ -16,12 +16,7 @@ const LoginUI = () => {
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
             <div className="flex justify-center gap-2 md:justify-center p-4">
-              <a href="#" className="flex items-center gap-2 font-medium">
-                <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
-                Inspectra
-              </a>
+              <Logo showText={true} size="sm" href="/" />
             </div>
             <LoginForm />
           </div>

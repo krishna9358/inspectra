@@ -15,9 +15,9 @@ export default function GridSmallBackgroundDemo({
         className,
       )}
     >
-      {/* Grid Pattern */}
+      {/* Grid Pattern - Reduced contrast */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.15]"
+        className="absolute inset-0 pointer-events-none opacity-[0.05]"
         style={{
           backgroundImage: `linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)`,
           backgroundSize: "25px 25px",

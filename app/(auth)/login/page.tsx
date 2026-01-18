@@ -7,6 +7,7 @@ import { signIn } from "@/lib/auth-client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Logo } from "@/components/logo";
 
 // Inline CustomLoginForm
 function CustomLoginForm() {
@@ -52,15 +53,7 @@ export default function LoginPage() {
       {/* Left Side - Hero Content */}
       <div className="hidden lg:flex flex-1 flex-col justify-between p-12 lg:p-16 relative">
         {/* Logo */}
-        <Link href="/">
-          <div className="flex items-center gap-2">
-            <div className="size-8 bg-primary rounded-full flex items-center justify-center">
-              {/* Placeholder for Inspectra Logo */}
-              <span className="font-bold text-primary-foreground">I</span>
-            </div>
-            <span className="text-xl font-bold tracking-tight">Inspectra</span>
-          </div>
-        </Link>
+        <Logo showText={true} size="md" href="/" />
 
         {/* Hero Text */}
         <div className="max-w-2xl z-10 mt-20">
@@ -89,13 +82,8 @@ export default function LoginPage() {
 
       {/* Right Side - Login */}
       <div className="flex-1 flex flex-col items-center justify-center p-8 bg-card/50 lg:bg-transparent border-l border-border/10 backdrop-blur-sm z-20">
-        <div className="lg:hidden absolute top-8 left-8 flex items-center gap-2 mb-12">
-          <Link href="/">
-            <div className="size-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="font-bold text-primary-foreground">I</span>
-            </div>
-            <span className="text-xl font-bold tracking-tight">Inspectra</span>
-          </Link>
+        <div className="lg:hidden absolute top-8 left-8 mb-12">
+          <Logo showText={true} size="md" href="/" />
         </div>
 
         <div className="w-full max-w-md space-y-8 relative p-10">
