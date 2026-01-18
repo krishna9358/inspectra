@@ -19,11 +19,14 @@ export async function POST(req: NextRequest) {
       const [owner, repoName] = repo.split("/");
 
       if (action === "opened" || action === "synchronize") {
-        reviewPullRequest(owner, repoName, prNumber)
-          .then(() => console.log(`Review completed for ${repo} #${prNumber}`))
-          .catch((error: string) =>
-            console.log(`Review failed for ${repo} #${prNumber}`, error),
-          );
+        console.log(`[Webhook] PR ${action} event received for ${repo} #${prNumber}`);
+        try {
+          const result = await reviewPullRequest(owner, repoName, prNumber);
+          console.log(`[Webhook] Review queued successfully for ${repo} #${prNumber}:`, result);
+        } catch (error) {
+          console.error(`[Webhook] Failed to queue review for ${repo} #${prNumber}:`, error);
+          // Don't throw - we still want to return 200 to GitHub
+        }
       }
     }
 

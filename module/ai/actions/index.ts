@@ -46,15 +46,22 @@ export const reviewPullRequest = async (
       prNumber,
     );
 
-    await inngest.send({
+    console.log(`[reviewPullRequest] Sending Inngest event for ${owner}/${repo} PR #${prNumber}`);
+    
+    const eventResult = await inngest.send({
       name: "pr.review.requested",
       data: {
         owner,
         repo,
         prNumber,
+        title,
+        description,
+        diff,
         userId: repository.user.id,
       },
     });
+
+    console.log(`[reviewPullRequest] Inngest event sent successfully:`, eventResult);
 
     return { success: true, message: "Review Queued" };
   } catch (error) {
