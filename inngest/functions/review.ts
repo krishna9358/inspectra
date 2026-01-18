@@ -8,6 +8,7 @@ import prisma from "@/lib/db";
 import { generateReviewPrompt } from "@/module/ai/prompt";
 import { generateText } from "ai";
 import { openrouter } from "@/module/ai/lib/openrouter";
+import { google } from "@ai-sdk/google";
 
 export const generateReview = inngest.createFunction(
   { id: "generate-review", concurrency: 5 },
@@ -87,7 +88,7 @@ export const generateReview = inngest.createFunction(
       });
 
       const { text } = await generateText({
-        model: openrouter("qwen/qwen3-coder:free"),
+        model: google("gemini-2.5-flash"),
         prompt,
       });
 
