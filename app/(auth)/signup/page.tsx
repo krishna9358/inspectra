@@ -142,7 +142,7 @@ export default function SignupPage() {
             applicable to Inspectra.
           </p>
         </div>
-      </div>
+      </div> 
     </div>
   );
 }
