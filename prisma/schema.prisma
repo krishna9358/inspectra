@@ -42,10 +42,10 @@ model Repository{
  userId String
  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  reviews Review[]
- createdAt DateTime @default(now())
- updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@unique([userId])
+  @@index([userId])
   @@map("repository")
 }
 
